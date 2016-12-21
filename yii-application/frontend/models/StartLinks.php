@@ -1,0 +1,53 @@
+<?php
+
+namespace frontend\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "start_links".
+ *
+ * @property integer $start_link_id
+ * @property string $url
+ *
+ * @property VideoPage[] $videoPages
+ */
+class StartLinks extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'start_links';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['url'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'start_link_id' => 'Start Link ID',
+            'url' => 'Url',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVideoPages()
+    {
+        return $this->hasMany(VideoPage::className(), ['start_link_id' => 'start_link_id']);
+    }
+}
