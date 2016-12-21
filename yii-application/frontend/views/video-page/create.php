@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\StartLinks */
+/* @var $model frontend\models\VideoPage */
 
-$this->title = 'Create Start Links';
-$this->params['breadcrumbs'][] = ['label' => 'Start Links', 'url' => ['index']];
+$this->title = 'Create Video Page';
+$this->params['breadcrumbs'][] = ['label' => 'Video Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="start-links-create">
+<div class="video-page-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

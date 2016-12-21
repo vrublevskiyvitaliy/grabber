@@ -2,18 +2,17 @@
 
 namespace frontend\controllers;
 
-use frontend\models\StartLinkParser;
 use Yii;
-use frontend\models\StartLinks;
-use frontend\models\StartLinksSearch;
+use frontend\models\VideoPage;
+use frontend\models\VideoPageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * StartLinksController implements the CRUD actions for StartLinks model.
+ * VideoPageController implements the CRUD actions for VideoPage model.
  */
-class StartLinksController extends Controller
+class VideoPageController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class StartLinksController extends Controller
     }
 
     /**
-     * Lists all StartLinks models.
+     * Lists all VideoPage models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new StartLinksSearch();
+        $searchModel = new VideoPageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,30 +45,28 @@ class StartLinksController extends Controller
     }
 
     /**
-     * Displays a single StartLinks model.
+     * Displays a single VideoPage model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $startPage = StartLinks::findOne($id);
-        StartLinkParser::addUnknownVideos($startPage);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new StartLinks model.
+     * Creates a new VideoPage model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new StartLinks();
+        $model = new VideoPage();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->start_link_id]);
+            return $this->redirect(['view', 'id' => $model->video_page_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -78,7 +75,7 @@ class StartLinksController extends Controller
     }
 
     /**
-     * Updates an existing StartLinks model.
+     * Updates an existing VideoPage model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -88,7 +85,7 @@ class StartLinksController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->start_link_id]);
+            return $this->redirect(['view', 'id' => $model->video_page_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -97,7 +94,7 @@ class StartLinksController extends Controller
     }
 
     /**
-     * Deletes an existing StartLinks model.
+     * Deletes an existing VideoPage model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +107,15 @@ class StartLinksController extends Controller
     }
 
     /**
-     * Finds the StartLinks model based on its primary key value.
+     * Finds the VideoPage model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return StartLinks the loaded model
+     * @return VideoPage the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = StartLinks::findOne($id)) !== null) {
+        if (($model = VideoPage::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

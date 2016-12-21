@@ -5,12 +5,12 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\StartLinks;
+use frontend\models\VideoPage;
 
 /**
- * StartLinksSearch represents the model behind the search form about `frontend\models\StartLinks`.
+ * VideoPageSearch represents the model behind the search form about `frontend\models\VideoPage`.
  */
-class StartLinksSearch extends StartLinks
+class VideoPageSearch extends VideoPage
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class StartLinksSearch extends StartLinks
     public function rules()
     {
         return [
-            [['start_link_id'], 'integer'],
-            [['url', 'tittle'], 'safe'],
+            [['video_page_id', 'start_link_id'], 'integer'],
+            [['url', 'image_url', 'tittle'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StartLinksSearch extends StartLinks
      */
     public function search($params)
     {
-        $query = StartLinks::find();
+        $query = VideoPage::find();
 
         // add conditions that should always apply here
 
@@ -59,10 +59,12 @@ class StartLinksSearch extends StartLinks
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'video_page_id' => $this->video_page_id,
             'start_link_id' => $this->start_link_id,
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'image_url', $this->image_url])
             ->andFilterWhere(['like', 'tittle', $this->tittle]);
 
         return $dataProvider;

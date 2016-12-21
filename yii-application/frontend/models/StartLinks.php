@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $start_link_id
  * @property string $url
+ * @property string $tittle
  *
  * @property VideoPage[] $videoPages
  */
@@ -28,7 +29,9 @@ class StartLinks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['url', 'tittle'], 'required'],
             [['url'], 'string', 'max' => 255],
+            [['tittle'], 'string', 'max' => 45],
         ];
     }
 
@@ -40,6 +43,7 @@ class StartLinks extends \yii\db\ActiveRecord
         return [
             'start_link_id' => 'Start Link ID',
             'url' => 'Url',
+            'tittle' => 'Tittle',
         ];
     }
 

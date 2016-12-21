@@ -10,6 +10,8 @@ use Yii;
  * @property integer $video_page_id
  * @property integer $start_link_id
  * @property string $url
+ * @property string $image_url
+ * @property string $tittle
  *
  * @property StartLinks $startLink
  */
@@ -29,9 +31,10 @@ class VideoPage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['start_link_id', 'url'], 'required'],
+            [['start_link_id', 'url', 'image_url', 'tittle'], 'required'],
             [['start_link_id'], 'integer'],
-            [['url'], 'string', 'max' => 255],
+            [['url', 'image_url'], 'string', 'max' => 255],
+            [['tittle'], 'string', 'max' => 255],
             [['start_link_id'], 'exist', 'skipOnError' => true, 'targetClass' => StartLinks::className(), 'targetAttribute' => ['start_link_id' => 'start_link_id']],
         ];
     }
@@ -45,6 +48,8 @@ class VideoPage extends \yii\db\ActiveRecord
             'video_page_id' => 'Video Page ID',
             'start_link_id' => 'Start Link ID',
             'url' => 'Url',
+            'image_url' => 'Image Url',
+            'tittle' => 'Tittle',
         ];
     }
 

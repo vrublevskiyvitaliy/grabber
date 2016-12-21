@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\StartLinks */
+/* @var $model frontend\models\StartLinks */
 
 $this->title = 'Update Start Links: ' . $model->start_link_id;
 $this->params['breadcrumbs'][] = ['label' => 'Start Links', 'url' => ['index']];

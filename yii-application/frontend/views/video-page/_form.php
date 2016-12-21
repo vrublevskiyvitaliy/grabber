@@ -4,15 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\StartLinks */
+/* @var $model frontend\models\VideoPage */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="start-links-form">
+<div class="video-page-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'start_link_id')->textInput() ?>
+
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'image_url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tittle')->textInput(['maxlength' => true]) ?>
 
