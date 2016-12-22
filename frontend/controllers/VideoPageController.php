@@ -102,6 +102,16 @@ class VideoPageController extends Controller
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
 
+    public function actionOpen($id)
+    {
+        $model = $this->findModel($id);
+
+        $pathToFile = '~/dd/1.mp4';
+        $out = shell_exec(' open  ' . $pathToFile);
+
+        return $this->redirect(['view', 'id' => $model->video_page_id]);
+    }
+
     /**
      * Deletes an existing VideoPage model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
