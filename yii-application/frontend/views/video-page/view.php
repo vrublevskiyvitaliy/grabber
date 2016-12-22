@@ -36,4 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+
 </div>
