@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\helpers\PathHelper;
 use Yii;
 use frontend\models\VideoPage;
 use frontend\models\VideoPageSearch;
@@ -106,8 +107,10 @@ class VideoPageController extends Controller
     {
         $model = $this->findModel($id);
 
-        $pathToFile = '~/dd/1.mp4';
-        $out = shell_exec(' open  ' . $pathToFile);
+        $path = PathHelper::getVideoPathForVideoPage($model);
+        $path = PathHelper::prepareForShellExecuting($path);
+
+        $out = shell_exec(' open  ' . $path);
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }

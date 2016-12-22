@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 
+use frontend\helpers\PathHelper;
+
 /**
  * This is the model class for table "video_page".
  *
