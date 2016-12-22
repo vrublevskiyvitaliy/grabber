@@ -101,6 +101,7 @@ class VideoPageController extends Controller
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
+
     /**
      * Deletes an existing VideoPage model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
