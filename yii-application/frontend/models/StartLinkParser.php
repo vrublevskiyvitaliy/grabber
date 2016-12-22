@@ -57,7 +57,8 @@ class StartLinkParser
         foreach($foundLinks as $link) {
             // check if exist in db
 
-            $videoLink = VideoPage::findOne(['url' => $link['href']]);
+            $url = $scheme . '://' . $host . $link['href'];;
+            $videoLink = VideoPage::findOne(['url' => $url]);
 
             if (empty($videoLink)) {
 
@@ -66,7 +67,7 @@ class StartLinkParser
                 $videoLink->image_url = $link['image'];
                 $videoLink->tittle = $link['title'];
                 $videoLink->post_time = $link['post_time'];
-                $videoLink->url = $scheme . '://' . $host . $link['href'];
+                $videoLink->url = $url;
                 $videoLink->save();
             }
         }

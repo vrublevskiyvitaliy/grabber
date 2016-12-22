@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     );
                 },
             ],
-            //'create_time',
-            //'video_page_id',
+            'create_time',
+            'video_page_id',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
