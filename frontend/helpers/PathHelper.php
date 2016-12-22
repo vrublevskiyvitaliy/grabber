@@ -2,8 +2,9 @@
 
 namespace frontend\helpers;
 
-use frontend\models\VideoPage;
 use Yii;
+
+use frontend\models\VideoPage;
 
 class PathHelper
 {
@@ -48,6 +49,8 @@ class PathHelper
     public static function prepareForShellExecuting($path)
     {
         $path = preg_replace("/[\s_]/", "\ ", $path);
+        $path = preg_replace("/[(]/", "\(", $path);
+        $path = preg_replace("/[)]/", "\)", $path);
 
         return $path;
     }

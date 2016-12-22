@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use frontend\helpers\PathHelper;
+use frontend\helpers\VideoHelper;
+use frontend\models\DownloadedVideo;
 use Yii;
 use frontend\models\VideoPage;
 use frontend\models\VideoPageSearch;
@@ -98,7 +100,15 @@ class VideoPageController extends Controller
     {
         $model = $this->findModel($id);
 
-        $out = shell_exec(' youtube-dl ' . $model->url);
+        $url = VideoHelper::getDownloadUrl($model);
+
+        $out = shell_exec(' youtube-dl ' . $url);
+
+        $downloadedVideo = new DownloadedVideo();
+        $downloadedVideo->video_page_id = $id;
+        $downloadedVideo->log = $out;
+
+        $downloadedVideo->save();
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
