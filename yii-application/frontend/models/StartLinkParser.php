@@ -34,6 +34,9 @@ class StartLinkParser
                 $tmp = [];
                 $tmp['href'] = explode('?', $a->href, 2)[0];
                 $tmp['title'] = $a->title;
+                //$tmp['post_time'] = $a->find('.post_time')[0]->title;
+                $tmp['post_time'] = null;
+
                 $imageNode = $a->find('img')[0];
 
                 $tmp['image'] = $imageNode->src;
@@ -50,6 +53,7 @@ class StartLinkParser
         $foundLinks = static::getVideoLinksByStartLink($startLink);
 
         $host = parse_url($startLink->url, PHP_URL_HOST);
+        $scheme = parse_url($startLink->url, PHP_URL_SCHEME);
         foreach($foundLinks as $link) {
             // check if exist in db
 
@@ -61,7 +65,8 @@ class StartLinkParser
                 $videoLink->start_link_id = $startLink->start_link_id;
                 $videoLink->image_url = $link['image'];
                 $videoLink->tittle = $link['title'];
-                $videoLink->url = $host . $link['href'];
+                $videoLink->post_time = $link['post_time'];
+                $videoLink->url = $scheme . '://' . $host . $link['href'];
                 $videoLink->save();
             }
         }

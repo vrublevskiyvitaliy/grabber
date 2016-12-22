@@ -22,15 +22,43 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'video_page_id',
-            'start_link_id',
-            'url:url',
-            'image_url:url',
+            //['class' => 'yii\grid\SerialColumn'],
             'tittle',
+            //'url:url',
+            [
+                'attribute' => 'image',
+                'label' => 'Image',
+                'content' => function ($model) {
+                    return Html::img(
+                        $model->image_url,
+                        ['width' => 320, 'height' => 240]
+                    );
+                },
+            ],
+            //'create_time',
+            //'video_page_id',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => 'Открыть на сайте',
+                            'aria-label' => 'Открыть на сайте',
+                            'data-pjax' => '0',
+                            'target' => '_blank',
+                            'class' => 'inline',
+                        ];
 
-            ['class' => 'yii\grid\ActionColumn'],
+                        $url = $model->url;
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-eye-open"></span>',
+                            $url,
+                            $options
+                        );
+                    },
+                ],
+            ],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

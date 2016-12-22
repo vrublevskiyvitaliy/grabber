@@ -12,6 +12,8 @@ use Yii;
  * @property string $url
  * @property string $image_url
  * @property string $tittle
+ * @property string $create_time
+ * @property string $post_time
  *
  * @property StartLinks $startLink
  */
@@ -33,8 +35,8 @@ class VideoPage extends \yii\db\ActiveRecord
         return [
             [['start_link_id', 'url', 'image_url', 'tittle'], 'required'],
             [['start_link_id'], 'integer'],
-            [['url', 'image_url'], 'string', 'max' => 255],
-            [['tittle'], 'string', 'max' => 255],
+            [['create_time', 'post_time'], 'safe'],
+            [['url', 'image_url', 'tittle'], 'string', 'max' => 255],
             [['start_link_id'], 'exist', 'skipOnError' => true, 'targetClass' => StartLinks::className(), 'targetAttribute' => ['start_link_id' => 'start_link_id']],
         ];
     }
@@ -50,6 +52,8 @@ class VideoPage extends \yii\db\ActiveRecord
             'url' => 'Url',
             'image_url' => 'Image Url',
             'tittle' => 'Tittle',
+            'create_time' => 'Create Time',
+            'post_time' => 'Post Time',
         ];
     }
 

@@ -67,6 +67,8 @@ class VideoPageSearch extends VideoPage
             ->andFilterWhere(['like', 'image_url', $this->image_url])
             ->andFilterWhere(['like', 'tittle', $this->tittle]);
 
+        $query->orderBy('create_time DESC, video_page_id ASC');
+
         return $dataProvider;
     }
 }
