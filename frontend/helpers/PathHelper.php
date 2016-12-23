@@ -54,4 +54,15 @@ class PathHelper
 
         return $path;
     }
+
+    public static function getFileSizeInMb(VideoPage $videoPage)
+    {
+        $path = static::getVideoPathForVideoPage($videoPage);
+
+        $n = filesize($path);
+
+        $n = $n / 1000000;
+
+        return $n;
+    }
 }

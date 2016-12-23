@@ -47,6 +47,25 @@ class VideoPageController extends Controller
         ]);
     }
 
+
+    /**
+     * Lists all VideoPage models.
+     * @return mixed
+     */
+    public function actionIndexDownloaded()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['is_downloaded'] = 'yes';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
     /**
      * Displays a single VideoPage model.
      * @param integer $id
@@ -54,6 +73,14 @@ class VideoPageController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $path = PathHelper::getVideoPathForVideoPage($model);
+
+        $n = filesize($path);
+
+        $n = $n / 1000000;
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

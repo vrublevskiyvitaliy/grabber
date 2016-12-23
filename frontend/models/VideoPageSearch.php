@@ -19,7 +19,7 @@ class VideoPageSearch extends VideoPage
     {
         return [
             [['video_page_id', 'start_link_id'], 'integer'],
-            [['url', 'image_url', 'tittle'], 'safe'],
+            [['url', 'image_url', 'tittle', 'is_downloaded'], 'safe'],
         ];
     }
 
@@ -67,6 +67,9 @@ class VideoPageSearch extends VideoPage
             ->andFilterWhere(['like', 'image_url', $this->image_url])
             ->andFilterWhere(['like', 'tittle', $this->tittle]);
 
+        if ($this->is_downloaded == 'yes') {
+            $query->andFilterWhere(['is_downloaded' => 'yes']);
+        }
         $query->orderBy('create_time DESC, video_page_id ASC');
 
         return $dataProvider;
