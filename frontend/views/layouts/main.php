@@ -38,6 +38,7 @@ AppAsset::register($this);
         ['label' => 'Start Pages', 'url' => ['/start-links/index']],
         ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
         ['label' => 'Downloaded Videos', 'url' => ['/video-page/index-downloaded']],
+        ['label' => 'Set like status to video', 'url' => ['/video-page/rate-video']],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

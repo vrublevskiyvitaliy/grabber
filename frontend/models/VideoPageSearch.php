@@ -68,7 +68,7 @@ class VideoPageSearch extends VideoPage
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'image_url', $this->image_url])
-            ->andFilterWhere(['like', 'tittle', $this->tittle])
+            ->andFilterWhere(['like', VideoPage::tableName() . '.tittle', $this->tittle])
             ->andFilterWhere(['like', StartLinks::tableName() . '.tittle', $this->startLinkTitle]);
 
         if ($this->is_downloaded == 'yes') {

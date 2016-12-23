@@ -155,6 +155,34 @@ class VideoPageController extends Controller
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
 
+    public function actionRateVideo()
+    {
+        if (Yii::$app->request->get('id')) {
+            $model = VideoPage::findOne(Yii::$app->request->get('id'));
+            $status = Yii::$app->request->get('status');
+
+            if ($status == 'hide') {
+                $model->is_hidden = 'yes';
+            } else {
+                $model->like_status = $status;
+            }
+            $model->save();
+        }
+
+        $allWithoutEstimation = VideoPage::find()
+            ->select(['video_page_id'])
+            ->where(['like_status' => 'pending'])
+            ->asArray()
+            ->all();
+
+        $randomNumber = array_rand($allWithoutEstimation);
+        $randomId = $allWithoutEstimation[$randomNumber]['video_page_id'];
+
+        $model = $this->findModel($randomId);
+
+        return $this->render('rate-video', ['model' => $model]);
+    }
+    
     public function actionDeleteVideoFile($id)
     {
         $model = $this->findModel($id);
