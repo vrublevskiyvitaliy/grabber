@@ -48,6 +48,9 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'cache' => [
+            'class' => 'yii\caching\MemCache',
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
