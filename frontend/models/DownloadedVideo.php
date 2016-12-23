@@ -10,6 +10,7 @@ use Yii;
  * @property integer $downloaded_video_id
  * @property integer $video_page_id
  * @property string $log
+ * @property string $create_time
  *
  * @property VideoPage $videoPage
  */
@@ -32,6 +33,7 @@ class DownloadedVideo extends \yii\db\ActiveRecord
             [['video_page_id', 'log'], 'required'],
             [['video_page_id'], 'integer'],
             [['log'], 'string'],
+            [['create_time'], 'safe'],
             [['video_page_id'], 'exist', 'skipOnError' => true, 'targetClass' => VideoPage::className(), 'targetAttribute' => ['video_page_id' => 'video_page_id']],
         ];
     }
@@ -45,6 +47,7 @@ class DownloadedVideo extends \yii\db\ActiveRecord
             'downloaded_video_id' => 'Downloaded Video ID',
             'video_page_id' => 'Video Page ID',
             'log' => 'Log',
+            'create_time' => 'Create Time',
         ];
     }
 

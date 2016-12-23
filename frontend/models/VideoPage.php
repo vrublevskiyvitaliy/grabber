@@ -16,7 +16,11 @@ use frontend\helpers\PathHelper;
  * @property string $tittle
  * @property string $create_time
  * @property string $post_time
+ * @property string $like_status
+ * @property string $is_hidden
+ * @property string $is_downloaded
  *
+ * @property DownloadedVideo[] $downloadedVideos
  * @property StartLinks $startLink
  */
 class VideoPage extends \yii\db\ActiveRecord
@@ -38,6 +42,7 @@ class VideoPage extends \yii\db\ActiveRecord
             [['start_link_id', 'url', 'image_url', 'tittle'], 'required'],
             [['start_link_id'], 'integer'],
             [['create_time', 'post_time'], 'safe'],
+            [['like_status', 'is_hidden', 'is_downloaded'], 'string'],
             [['url', 'image_url', 'tittle'], 'string', 'max' => 255],
             [['start_link_id'], 'exist', 'skipOnError' => true, 'targetClass' => StartLinks::className(), 'targetAttribute' => ['start_link_id' => 'start_link_id']],
         ];
@@ -56,7 +61,18 @@ class VideoPage extends \yii\db\ActiveRecord
             'tittle' => 'Tittle',
             'create_time' => 'Create Time',
             'post_time' => 'Post Time',
+            'like_status' => 'Like Status',
+            'is_hidden' => 'Is Hidden',
+            'is_downloaded' => 'Is Downloaded',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDownloadedVideos()
+    {
+        return $this->hasMany(DownloadedVideo::className(), ['video_page_id' => 'video_page_id']);
     }
 
     /**
@@ -65,5 +81,25 @@ class VideoPage extends \yii\db\ActiveRecord
     public function getStartLink()
     {
         return $this->hasOne(StartLinks::className(), ['start_link_id' => 'start_link_id']);
+    }
+
+    public function getFileSize()
+    {
+        return PathHelper::getFileSizeInMb($this);
+    }
+
+    public function getFileSizePrettyString()
+    {
+        return PathHelper::getFileSizeInMbPrettyString($this);
+    }
+
+    public function getLastDownloadFile()
+    {
+        $downloadFile = DownloadedVideo::find()
+            ->where(['video_page_id' => $this->video_page_id])
+            ->orderBy('create_time DESC')
+            ->one();
+
+        return $downloadFile;
     }
 }

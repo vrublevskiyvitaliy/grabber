@@ -36,8 +36,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?= Html::a('Open', ['open', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+    <?php if($model->is_downloaded == 'yes'): ?>
+        <?= Html::a('Open', ['open', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <br><br>
+        <p> File size: <?= $model->getFileSize() ?>  Mb </p>
 
-    <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <?= DetailView::widget([
+            'model' => $model->lastDownloadFile,
+            'attributes' => [
+                'log',
+            ],
+        ]) ?>
+
+
+        <?= Html::a('Delete file', ['delete-video-file', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+    <?php else: ?>
+        <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+    <?php endif; ?>
 
 </div>
