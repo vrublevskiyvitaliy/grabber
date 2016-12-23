@@ -59,7 +59,7 @@ class VideoPageController extends Controller
         $params['VideoPageSearch']['is_downloaded'] = 'yes';
         $dataProvider = $searchModel->search($params);
 
-        return $this->render('index', [
+        return $this->render('index-downloaded', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

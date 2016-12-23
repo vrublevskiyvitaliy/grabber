@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 
+use frontend\helpers\PathHelper;
+
 /**
  * This is the model class for table "video_page".
  *
@@ -79,5 +81,10 @@ class VideoPage extends \yii\db\ActiveRecord
     public function getStartLink()
     {
         return $this->hasOne(StartLinks::className(), ['start_link_id' => 'start_link_id']);
+    }
+
+    public function getFileSize()
+    {
+        return PathHelper::getFileSizeInMb($this);
     }
 }

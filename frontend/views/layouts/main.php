@@ -37,6 +37,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Start Pages', 'url' => ['/start-links/index']],
         ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
+        ['label' => 'Downloaded Videos', 'url' => ['/video-page/index-downloaded']],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
