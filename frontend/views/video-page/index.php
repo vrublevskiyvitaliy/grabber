@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'tittle',
             [
                 'attribute' => 'image',
                 'label' => 'Image',
@@ -32,6 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['width' => 320, 'height' => 240]
                     );
                 },
+            ],
+            [
+                'attribute' => 'startLink.tittle',
+            ],
+            [
+                'attribute' => 'tittle',
+                'contentOptions' => ['style' => ['max-width' => '580px;', 'height' => '240px', 'white-space' =>'pre-wrap']]
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
