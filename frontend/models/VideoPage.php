@@ -87,4 +87,19 @@ class VideoPage extends \yii\db\ActiveRecord
     {
         return PathHelper::getFileSizeInMb($this);
     }
+
+    public function getFileSizePrettyString()
+    {
+        return PathHelper::getFileSizeInMbPrettyString($this);
+    }
+
+    public function getLastDownloadFile()
+    {
+        $downloadFile = DownloadedVideo::find()
+            ->where(['video_page_id' => $this->video_page_id])
+            ->orderBy('create_time DESC')
+            ->one();
+
+        return $downloadFile;
+    }
 }

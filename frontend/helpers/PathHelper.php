@@ -65,4 +65,11 @@ class PathHelper
 
         return $n;
     }
+
+    public static function getFileSizeInMbPrettyString(VideoPage $videoPage)
+    {
+        $n = static::getFileSizeInMb($videoPage);
+
+        return number_format($n, 2);
+    }
 }

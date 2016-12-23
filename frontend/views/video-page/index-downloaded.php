@@ -36,8 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => \yii\grid\Column::class,
                 'content' => function ($model, $key, $index, $column) {
-                    $fileSize = $model->getFileSize();
-                    $fileSize = number_format($fileSize, 2);
+                    $fileSize = $model->getFileSizePrettyString();
                     return $fileSize . ' Mb';
                 },
             ],

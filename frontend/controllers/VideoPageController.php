@@ -137,6 +137,9 @@ class VideoPageController extends Controller
 
         $downloadedVideo->save();
 
+        $model->is_downloaded = 'yes';
+        $model->save();
+
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
 
@@ -148,6 +151,21 @@ class VideoPageController extends Controller
         $path = PathHelper::prepareForShellExecuting($path);
 
         $out = shell_exec(' open  ' . $path);
+
+        return $this->redirect(['view', 'id' => $model->video_page_id]);
+    }
+
+    public function actionDeleteVideoFile($id)
+    {
+        $model = $this->findModel($id);
+
+        $path = PathHelper::getVideoPathForVideoPage($model);
+        $path = PathHelper::prepareForShellExecuting($path);
+
+        $out = shell_exec(' rm  ' . $path);
+
+        $model->is_downloaded = 'no';
+        $model->save();
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
