@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\VideoPageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Video Pages';
+$this->title = 'Downloaded Videos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="video-page-index">
