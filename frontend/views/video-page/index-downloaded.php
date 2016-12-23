@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\VideoPageSearch */
@@ -33,7 +34,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute' => 'startLink.tittle',
+                'attribute' => 'startLinkTitle',
+                'label' => 'Type',
+                'content' => function ($model) {
+                    $options = [
+                        'target' => '_blank',
+                        'class' => 'inline',
+                    ];
+                    $url = Url::to([
+                        'video-page/index-downloaded',
+                        'VideoPageSearch' => [
+                            'startLinkTitle' => $model->startLink->tittle,
+                            'title' => '',
+                        ]
+                    ]);
+                    return Html::a(
+                        $model->startLink->tittle,
+                        $url,
+                        $options
+                    );
+                },
             ],
             [
                 'attribute' => 'tittle',

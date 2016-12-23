@@ -12,6 +12,7 @@ use frontend\models\VideoPage;
  */
 class VideoPageSearch extends VideoPage
 {
+    public $startLinkTitle;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class VideoPageSearch extends VideoPage
     {
         return [
             [['video_page_id', 'start_link_id'], 'integer'],
-            [['url', 'image_url', 'tittle', 'is_downloaded'], 'safe'],
+            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle'], 'safe'],
         ];
     }
 
@@ -57,6 +58,8 @@ class VideoPageSearch extends VideoPage
             return $dataProvider;
         }
 
+        $query->joinWith('startLink');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'video_page_id' => $this->video_page_id,
@@ -65,7 +68,8 @@ class VideoPageSearch extends VideoPage
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'image_url', $this->image_url])
-            ->andFilterWhere(['like', 'tittle', $this->tittle]);
+            ->andFilterWhere(['like', 'tittle', $this->tittle])
+            ->andFilterWhere(['like', StartLinks::tableName() . '.tittle', $this->startLinkTitle]);
 
         if ($this->is_downloaded == 'yes') {
             $query->andFilterWhere(['is_downloaded' => 'yes']);
