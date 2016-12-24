@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use frontend\helpers\VideoHelper;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\VideoPage */
@@ -16,23 +17,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->video_page_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'video_page_id',
-            'start_link_id',
-            'url:url',
-            'image_url:url',
+            'startLink.tittle',
             'tittle',
+            [
+                'attribute' => 'image_url',
+                'value' => $model->image_url,
+                'format' => ['image',['width'=>'400','height'=>'300']],
+            ],
+            [
+                'attribute' => 'url',
+                'value' => Html::a('Watch', VideoHelper::getDownloadUrl($model)),
+                'format' => 'raw'
+            ]
         ],
     ]) ?>
 
