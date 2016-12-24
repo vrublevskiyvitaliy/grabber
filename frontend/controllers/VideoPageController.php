@@ -50,10 +50,6 @@ class VideoPageController extends Controller
     }
 
 
-    /**
-     * Lists all VideoPage models.
-     * @return mixed
-     */
     public function actionIndexDownloaded()
     {
         $searchModel = new VideoPageSearch();
@@ -62,6 +58,19 @@ class VideoPageController extends Controller
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index-downloaded', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndexToDownload()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['toDownload'] = 'yes';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

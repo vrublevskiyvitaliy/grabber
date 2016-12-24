@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 
+use common\models\DownloadQueue;
+
 use frontend\helpers\PathHelper;
 
 /**
@@ -73,6 +75,14 @@ class VideoPage extends \yii\db\ActiveRecord
     public function getDownloadedVideos()
     {
         return $this->hasMany(DownloadedVideo::className(), ['video_page_id' => 'video_page_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getToDownloadVideos()
+    {
+        return $this->hasMany(DownloadQueue::className(), ['video_page_id' => 'video_page_id']);
     }
 
     /**

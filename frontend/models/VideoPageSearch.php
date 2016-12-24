@@ -13,6 +13,7 @@ use frontend\models\VideoPage;
 class VideoPageSearch extends VideoPage
 {
     public $startLinkTitle;
+    public $toDownload;
     /**
      * @inheritdoc
      */
@@ -20,7 +21,7 @@ class VideoPageSearch extends VideoPage
     {
         return [
             [['video_page_id', 'start_link_id'], 'integer'],
-            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle'], 'safe'],
+            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload'], 'safe'],
         ];
     }
 
@@ -70,6 +71,12 @@ class VideoPageSearch extends VideoPage
             ->andFilterWhere(['like', 'image_url', $this->image_url])
             ->andFilterWhere(['like', VideoPage::tableName() . '.tittle', $this->tittle])
             ->andFilterWhere(['like', StartLinks::tableName() . '.tittle', $this->startLinkTitle]);
+
+        if ($this->toDownload == 'yes') {
+            $query->innerJoinWith('toDownloadVideos')
+                ->where(['download_status' => 'download_now'])
+                ->distinct();
+        }
 
         if ($this->is_downloaded == 'yes') {
             $query->joinWith('downloadedVideos')

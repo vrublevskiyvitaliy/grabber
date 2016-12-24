@@ -43,7 +43,7 @@ AppAsset::register($this);
                 ['label' => 'General', 'url' => ['/video-page/index-general']],
                 ['label' => 'Best', 'url' => ['/video-page/index-best']],
                 ['label' => 'Like', 'url' => ['/video-page/index-like']],
-                ['label' => 'To download', 'url' => ['/video-page/index-to_download']],
+                ['label' => 'To download', 'url' => ['/video-page/index-to-download']],
                 ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
             ]
         ],

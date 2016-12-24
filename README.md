@@ -30,6 +30,10 @@ Start PHP-FPM:
 
     launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php56.plist
 
+To debug turn of PHP-FPM:
+
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php56.plist
+    
 Check that PHP-FPM is listening on port 9000:
 
     lsof -Pni4 | grep LISTEN | grep php
