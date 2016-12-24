@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use frontend\helpers\PathHelper;
 
 AppAsset::register($this);
 ?>
@@ -68,8 +69,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">Used
+            <?= number_format(PathHelper::getDirectorySizeInGb(Yii::$app->params['downloadFolder']) ,2) ?>
+            Gb</p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

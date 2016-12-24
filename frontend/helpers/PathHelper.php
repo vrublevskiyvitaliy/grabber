@@ -2,6 +2,9 @@
 
 namespace frontend\helpers;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+
 use Yii;
 
 use frontend\models\VideoPage;
@@ -78,5 +81,13 @@ class PathHelper
         $n = static::getFileSizeInMb($videoPage);
 
         return number_format($n, 2);
+    }
+
+    public static function getDirectorySizeInGb($directory) {
+        $size = 0;
+        foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory)) as $file){
+            $size += $file->getSize() / 1000000000;
+        }
+        return $size;
     }
 }
