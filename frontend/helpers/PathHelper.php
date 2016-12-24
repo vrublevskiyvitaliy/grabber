@@ -34,7 +34,13 @@ class PathHelper
 
         $pathToType = Yii::$app->params['downloadFolder'] . $videoPage->startLink->getFolderName() . '/';
 
-        $path = $pathToType . $videoPage->video_page_id . '.mp4';
+        $videos = static::getAllVideosFromFolder($pathToType);
+
+        foreach ($videos as $video) {
+            if ($video == $videoPage->video_page_id . '.mp4') {
+                $path = $pathToType . $video;
+            }
+        }
 
         return $path;
     }
