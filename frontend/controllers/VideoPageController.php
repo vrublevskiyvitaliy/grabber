@@ -151,7 +151,8 @@ class VideoPageController extends Controller
 
     public function actionRateVideo()
     {
-        if (Yii::$app->request->get('id')) {
+        $getRandom = true;
+        if (Yii::$app->request->get('id') && Yii::$app->request->get('status')) {
             $model = VideoPage::findOne(Yii::$app->request->get('id'));
             $status = Yii::$app->request->get('status');
 
@@ -161,18 +162,24 @@ class VideoPageController extends Controller
                 $model->like_status = $status;
             }
             $model->save();
+
+        } else if (Yii::$app->request->get('id')) {
+            $model = VideoPage::findOne(Yii::$app->request->get('id'));
+            $getRandom = false;
         }
 
-        $allWithoutEstimation = VideoPage::find()
-            ->select(['video_page_id'])
-            ->where(['like_status' => 'pending'])
-            ->asArray()
-            ->all();
+        if ($getRandom) {
+            $allWithoutEstimation = VideoPage::find()
+                ->select(['video_page_id'])
+                ->where(['like_status' => 'pending'])
+                ->asArray()
+                ->all();
 
-        $randomNumber = array_rand($allWithoutEstimation);
-        $randomId = $allWithoutEstimation[$randomNumber]['video_page_id'];
+            $randomNumber = array_rand($allWithoutEstimation);
+            $randomId = $allWithoutEstimation[$randomNumber]['video_page_id'];
 
-        $model = $this->findModel($randomId);
+            $model = $this->findModel($randomId);
+        }
 
         return $this->render('rate-video', ['model' => $model]);
     }

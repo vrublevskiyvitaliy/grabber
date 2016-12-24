@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Rate this video', ['rate-video', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

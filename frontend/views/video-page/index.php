@@ -79,8 +79,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             $options
                         );
                     },
+                    'rate' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => 'Rate',
+                            'aria-label' => 'Rate',
+                            'data-pjax' => '0',
+                            'target' => '_blank',
+                            'class' => 'inline',
+                        ];
+
+                        $url = Url::to(['rate-video', 'id' => $model->video_page_id]);
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-thumbs-up"></span>',
+                            $url,
+                            $options
+                        );
+                    },
                 ],
-                'template' => '{open} {view} {update} {delete}'
+                'template' => '{open} {view} {rate} {update} {delete}'
             ],
         ],
     ]); ?>
