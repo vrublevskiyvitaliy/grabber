@@ -51,6 +51,9 @@ class PathHelper
         $path = preg_replace("/[\s_]/", "\ ", $path);
         $path = preg_replace("/[(]/", "\(", $path);
         $path = preg_replace("/[)]/", "\)", $path);
+        $path = preg_replace("/[,]/", "\,", $path);
+        $path = preg_replace("/[]]/", "\]", $path);
+        $path = preg_replace("/[[]/", "\[", $path);
 
         return $path;
     }

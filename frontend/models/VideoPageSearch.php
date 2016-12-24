@@ -14,6 +14,7 @@ class VideoPageSearch extends VideoPage
 {
     public $startLinkTitle;
     public $toDownload;
+
     /**
      * @inheritdoc
      */
@@ -21,7 +22,7 @@ class VideoPageSearch extends VideoPage
     {
         return [
             [['video_page_id', 'start_link_id'], 'integer'],
-            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload'], 'safe'],
+            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload','like_status'], 'safe'],
         ];
     }
 
@@ -65,6 +66,7 @@ class VideoPageSearch extends VideoPage
         $query->andFilterWhere([
             'video_page_id' => $this->video_page_id,
             'start_link_id' => $this->start_link_id,
+            'like_status' => $this->like_status,
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])

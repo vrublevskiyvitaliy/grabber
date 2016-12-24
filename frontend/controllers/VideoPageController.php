@@ -76,6 +76,32 @@ class VideoPageController extends Controller
         ]);
     }
 
+    public function actionIndexLike()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['like_status'] = 'like';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndexBest()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['like_status'] = 'best';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
 
     /**
      * Displays a single VideoPage model.
