@@ -53,8 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endif; ?>
 
         <?= Html::a('Delete file', ['delete-video-file', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
-    <?php else: ?>
+    <?php elseif (!$model->isInDownloadQueue()): ?>
         <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+    <?php else:?>
+        <p>It's going to be downloaded soon!</p>
     <?php endif; ?>
 
 </div>
