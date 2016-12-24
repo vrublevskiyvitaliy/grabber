@@ -18,7 +18,7 @@ class StartLinksSearch extends StartLinks
     public function rules()
     {
         return [
-            [['start_link_id'], 'integer'],
+            [['start_link_id', 'site_id'], 'integer'],
             [['url', 'tittle'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class StartLinksSearch extends StartLinks
         // grid filtering conditions
         $query->andFilterWhere([
             'start_link_id' => $this->start_link_id,
+            'site_id' => $this->site_id,
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])

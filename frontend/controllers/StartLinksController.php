@@ -9,8 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use frontend\models\StartLinks;
-use frontend\models\StartLinkParser;
 use frontend\models\StartLinksSearch;
+
+use frontend\parsers\models\YoutubeParser;
 
 /**
  * StartLinksController implements the CRUD actions for StartLinks model.
@@ -54,8 +55,10 @@ class StartLinksController extends Controller
      */
     public function actionView($id)
     {
-        $startPage = StartLinks::findOne($id);
-        StartLinkParser::addUnknownVideos($startPage);
+        $startPage = $this->findModel($id);
+
+        //YoutubeParser::addUnknownVideos($startPage);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
