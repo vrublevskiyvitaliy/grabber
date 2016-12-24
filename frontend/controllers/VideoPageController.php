@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\components\VideoSaver;
+use common\models\DownloadQueue;
 use frontend\helpers\PathHelper;
 use frontend\helpers\VideoHelper;
 use frontend\models\DownloadedVideo;
@@ -82,7 +84,7 @@ class VideoPageController extends Controller
         $n = $n / 1000000;
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model
         ]);
     }
 
@@ -127,18 +129,10 @@ class VideoPageController extends Controller
     {
         $model = $this->findModel($id);
 
-        $url = VideoHelper::getDownloadUrl($model);
-
-        $out = shell_exec(' youtube-dl ' . $url);
-
-        $downloadedVideo = new DownloadedVideo();
-        $downloadedVideo->video_page_id = $id;
-        $downloadedVideo->log = $out;
-
-        $downloadedVideo->save();
-
-        $model->is_downloaded = 'yes';
-        $model->save();
+        $downloadQueue = new DownloadQueue();
+        $downloadQueue->download_status = 'download_now';
+        $downloadQueue->video_page_id = $id;
+        $downloadQueue->save();
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }

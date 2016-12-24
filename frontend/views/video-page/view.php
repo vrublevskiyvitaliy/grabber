@@ -41,13 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <br><br>
         <p> File size: <?= $model->getFileSize() ?>  Mb </p>
 
-        <?= DetailView::widget([
-            'model' => $model->lastDownloadFile,
-            'attributes' => [
-                'log',
-            ],
-        ]) ?>
-
+        <?php if (!empty($model->lastDownloadFile)): ?>
+            <?= DetailView::widget([
+                'model' => $model->lastDownloadFile,
+                'attributes' => [
+                    'log',
+                ],
+            ]) ?>
+        <?php endif; ?>
 
         <?= Html::a('Delete file', ['delete-video-file', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
     <?php else: ?>
