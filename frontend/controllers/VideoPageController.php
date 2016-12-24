@@ -103,6 +103,20 @@ class VideoPageController extends Controller
     }
 
 
+    public function actionIndexGeneral()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['is_hidden'] = 'no';
+        $params['VideoPageSearch']['is_downloaded'] = 'no';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single VideoPage model.
      * @param integer $id

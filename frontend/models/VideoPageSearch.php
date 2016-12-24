@@ -22,7 +22,7 @@ class VideoPageSearch extends VideoPage
     {
         return [
             [['video_page_id', 'start_link_id'], 'integer'],
-            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload','like_status'], 'safe'],
+            [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload','like_status', 'is_hidden'], 'safe'],
         ];
     }
 
@@ -67,6 +67,8 @@ class VideoPageSearch extends VideoPage
             'video_page_id' => $this->video_page_id,
             'start_link_id' => $this->start_link_id,
             'like_status' => $this->like_status,
+            'is_hidden' => $this->is_hidden,
+            'is_downloaded' => $this->is_downloaded,
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])
