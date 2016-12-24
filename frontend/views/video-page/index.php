@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use frontend\helpers\VideoHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\VideoPageSearch */
@@ -62,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
-                    'view' => function ($url, $model, $key) {
+                    'open' => function ($url, $model, $key) {
                         $options = [
                             'title' => 'Открыть на сайте',
                             'aria-label' => 'Открыть на сайте',
@@ -71,14 +72,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'inline',
                         ];
 
-                        $url = $model->url;
+                        $url = VideoHelper::getDownloadUrl($model);
                         return Html::a(
-                            '<span class="glyphicon glyphicon-eye-open"></span>',
+                            '<span class="glyphicon glyphicon-hd-video"></span>',
                             $url,
                             $options
                         );
                     },
                 ],
+                'template' => '{open} {view} {update} {delete}'
             ],
         ],
     ]); ?>
