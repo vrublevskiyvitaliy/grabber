@@ -36,9 +36,18 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Start Pages', 'url' => ['/start-links/index']],
-        ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
-        ['label' => 'Downloaded Videos', 'url' => ['/video-page/index-downloaded']],
-        ['label' => 'Set like status to video', 'url' => ['/video-page/rate-video']],
+        [
+            'label' => 'Listings',
+            'items' => [
+                ['label' => 'Downloaded Videos', 'url' => ['/video-page/index-downloaded']],
+                ['label' => 'General', 'url' => ['/video-page/index-general']],
+                ['label' => 'Best', 'url' => ['/video-page/index-best']],
+                ['label' => 'Like', 'url' => ['/video-page/index-like']],
+                ['label' => 'To download', 'url' => ['/video-page/index-to_download']],
+                ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
+            ]
+        ],
+        ['label' => 'Rate it', 'url' => ['/video-page/rate-video']],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
