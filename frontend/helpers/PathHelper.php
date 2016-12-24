@@ -5,12 +5,13 @@ namespace frontend\helpers;
 use Yii;
 
 use frontend\models\VideoPage;
+use yii\base\Exception;
 
 class PathHelper
 {
-    public static function getAllVideosFromDefaultFolder()
+    public static function getAllVideosFromFolder($folder)
     {
-        $allFiles = scandir(Yii::$app->params['downloadFolder']);
+        $allFiles = scandir($folder);
 
         $videoExtensions = ['.mp4'];
 
@@ -31,17 +32,9 @@ class PathHelper
     {
         $path = null;
 
-        $allVideoFiles = static::getAllVideosFromDefaultFolder();
+        $pathToType = Yii::$app->params['downloadFolder'] . $videoPage->startLink->getFolderName() . '/';
 
-        $title = $videoPage->tittle;
-
-        foreach ($allVideoFiles as $video) {
-            $tmp = substr($video, 0, strlen($title));
-            if ($tmp == $title) {
-                $path = Yii::$app->params['downloadFolder'] . $video;
-                break;
-            }
-        }
+        $path = $pathToType . $videoPage->video_page_id . '.mp4';
 
         return $path;
     }
@@ -62,7 +55,12 @@ class PathHelper
     {
         $path = static::getVideoPathForVideoPage($videoPage);
 
-        $n = filesize($path);
+        try {
+            $n = filesize($path);
+        } catch (Exception $e) {
+            $n = 0;
+        }
+
 
         $n = $n / 1000000;
 

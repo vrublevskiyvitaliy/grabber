@@ -114,10 +114,6 @@ class VideoPageController extends Controller
 
         $path = PathHelper::getVideoPathForVideoPage($model);
 
-        $n = filesize($path);
-
-        $n = $n / 1000000;
-
         return $this->render('view', [
             'model' => $model
         ]);
@@ -177,7 +173,6 @@ class VideoPageController extends Controller
         $model = $this->findModel($id);
 
         $path = PathHelper::getVideoPathForVideoPage($model);
-        $path = PathHelper::prepareForShellExecuting($path);
 
         $out = shell_exec(' open  ' . $path);
 
@@ -224,7 +219,6 @@ class VideoPageController extends Controller
         $model = $this->findModel($id);
 
         $path = PathHelper::getVideoPathForVideoPage($model);
-        $path = PathHelper::prepareForShellExecuting($path);
 
         $out = shell_exec(' rm  ' . $path);
 

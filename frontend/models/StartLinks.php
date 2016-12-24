@@ -54,4 +54,11 @@ class StartLinks extends \yii\db\ActiveRecord
     {
         return $this->hasMany(VideoPage::className(), ['start_link_id' => 'start_link_id']);
     }
+
+    public function getFolderName()
+    {
+        $name = preg_replace("/[^A-Za-z]/", "", $this->tittle);
+        return $name;
+    }
+
 }
