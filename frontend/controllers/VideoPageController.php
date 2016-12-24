@@ -117,6 +117,19 @@ class VideoPageController extends Controller
         ]);
     }
 
+    public function actionIndexProblemDownloads()
+    {
+        $searchModel = new VideoPageSearch();
+        $params = Yii::$app->request->queryParams;
+        $params['VideoPageSearch']['is_downloaded'] = 'problem';
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('index-downloaded', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single VideoPage model.
      * @param integer $id
