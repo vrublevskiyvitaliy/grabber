@@ -2,17 +2,17 @@
 
 namespace frontend\controllers;
 
-use common\components\VideoSaver;
-use common\models\DownloadQueue;
-use frontend\helpers\PathHelper;
-use frontend\helpers\VideoHelper;
-use frontend\models\DownloadedVideo;
 use Yii;
-use frontend\models\VideoPage;
-use frontend\models\VideoPageSearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+use common\models\DownloadQueue;
+
+use frontend\models\VideoPage;
+use frontend\models\VideoPageSearch;
+use frontend\helpers\PathHelper;
 
 /**
  * VideoPageController implements the CRUD actions for VideoPage model.

@@ -3,8 +3,9 @@
 namespace common\components;
 
 use frontend\models\VideoPage;
-use frontend\helpers\VideoHelper;
 use frontend\models\DownloadedVideo;
+
+use frontend\helpers\VideoHelper;
 
 class VideoSaver
 {
