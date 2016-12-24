@@ -9,6 +9,9 @@ use Yii;
  *
  * @property integer $site_id
  * @property string $url
+ * @property string $parser_name
+ *
+ * @property StartLinks[] $startLinks
  */
 class Site extends \yii\db\ActiveRecord
 {
@@ -26,8 +29,8 @@ class Site extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url'], 'required'],
-            [['url'], 'string', 'max' => 255],
+            [['url', 'parser_name'], 'required'],
+            [['url', 'parser_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,6 +42,15 @@ class Site extends \yii\db\ActiveRecord
         return [
             'site_id' => 'Site ID',
             'url' => 'Url',
+            'parser_name' => 'Parser Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStartLinks()
+    {
+        return $this->hasMany(StartLinks::className(), ['site_id' => 'site_id']);
     }
 }

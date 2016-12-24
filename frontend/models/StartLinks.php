@@ -10,7 +10,9 @@ use Yii;
  * @property integer $start_link_id
  * @property string $url
  * @property string $tittle
+ * @property integer $site_id
  *
+ * @property Site $site
  * @property VideoPage[] $videoPages
  */
 class StartLinks extends \yii\db\ActiveRecord
@@ -29,9 +31,11 @@ class StartLinks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url', 'tittle'], 'required'],
+            [['url', 'tittle', 'site_id'], 'required'],
+            [['site_id'], 'integer'],
             [['url'], 'string', 'max' => 255],
             [['tittle'], 'string', 'max' => 45],
+            [['site_id'], 'exist', 'skipOnError' => true, 'targetClass' => Site::className(), 'targetAttribute' => ['site_id' => 'site_id']],
         ];
     }
 
@@ -44,7 +48,16 @@ class StartLinks extends \yii\db\ActiveRecord
             'start_link_id' => 'Start Link ID',
             'url' => 'Url',
             'tittle' => 'Tittle',
+            'site_id' => 'Site ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSite()
+    {
+        return $this->hasOne(Site::className(), ['site_id' => 'site_id']);
     }
 
     /**
