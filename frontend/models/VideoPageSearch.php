@@ -72,9 +72,13 @@ class VideoPageSearch extends VideoPage
             ->andFilterWhere(['like', StartLinks::tableName() . '.tittle', $this->startLinkTitle]);
 
         if ($this->is_downloaded == 'yes') {
+            $query->joinWith('downloadedVideos')
+                ->distinct()
+                ->orderBy(DownloadedVideo::tableName() . '.create_time DESC, video_page_id ASC');
             $query->andFilterWhere(['is_downloaded' => 'yes']);
+        } else {
+            $query->orderBy('create_time DESC, video_page_id ASC');
         }
-        $query->orderBy('create_time DESC, video_page_id ASC');
 
         return $dataProvider;
     }
