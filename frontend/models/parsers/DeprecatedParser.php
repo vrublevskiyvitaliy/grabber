@@ -1,18 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vitaliyvrublevskiy
- * Date: 12/21/16
- * Time: 6:05 PM
- */
 
-namespace frontend\models;
+namespace frontend\parsers\models;
 
 use Sunra\PhpSimple\HtmlDomParser;
 
-class StartLinkParser
-{
+use frontend\models\StartLinks;
+use frontend\models\VideoPage;
 
+class DeprecatedParser
+{
+    public $name = 'deprecated';
 
     public static function getVideoLinksByStartLink(StartLinks $link)
     {
@@ -46,8 +43,6 @@ class StartLinkParser
         return $foundLinks;
     }
 
-
-
     public static function addUnknownVideos(StartLinks $startLink)
     {
         $foundLinks = static::getVideoLinksByStartLink($startLink);
@@ -71,7 +66,5 @@ class StartLinkParser
                 $videoLink->save();
             }
         }
-
-
     }
 }
