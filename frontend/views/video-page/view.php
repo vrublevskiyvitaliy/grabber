@@ -32,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'url',
-                'value' => Html::a('Watch', VideoHelper::getDownloadUrl($model)),
-                'format' => 'raw'
+                'value' => Html::a('Watch', VideoHelper::getDownloadUrl($model), ['target' => '_blank']),
+                'format' => 'raw',
             ]
         ],
     ]) ?>
