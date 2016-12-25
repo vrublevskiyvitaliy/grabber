@@ -39,6 +39,15 @@ class StartLinks extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes){
+        parent::afterSave($insert, $changedAttributes);
+
+        // create directory for downloads
+        $path = Yii::$app->params['downloadFolder'] . $this->getFolderName();
+        shell_exec(' mkdir ' . $path);
+
+    }
+
     /**
      * @inheritdoc
      */
