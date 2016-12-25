@@ -1,11 +1,12 @@
 <?php
 
-namespace frontend\parsers\models;
+namespace frontend\models\parsers;
 
 use Sunra\PhpSimple\HtmlDomParser;
 
 use frontend\models\StartLinks;
 use frontend\models\VideoPage;
+use yii\base\Exception;
 
 class YoutubeParser
 {
@@ -16,28 +17,42 @@ class YoutubeParser
         $html = HtmlDomParser::file_get_html($link->url);
 
         $blocks = $html->find('.yt-lockup-dismissable');
-
+///$blocks = $html->find('.item-section');
         $foundLinks = [];
         foreach($blocks as $block) {
 
-            if (substr($a->href, 0, 6) == '/post/' )
-            {
-                $parentNode = $a->parentNode();
+            try {
 
-                if (array_key_exists('id', $parentNode->attr) && $parentNode->attr['id'] == 'topVid_container') {
-                    continue;
-                }
-                //we found our url
+                $h3 = $block->find('.yt-lockup-title')[0];
+                $a = $h3->find('a')[0];
+
                 $tmp = [];
-                $tmp['href'] = explode('?', $a->href, 2)[0];
+                //tmp['href'] = explode('?', $a->href, 2)[0];
+                $tmp['href'] = $a->href;
                 $tmp['title'] = $a->title;
-                //$tmp['post_time'] = $a->find('.post_time')[0]->title;
+
+                $imageNode = $block->find('.yt-thumb-simple');
+                if (!array_key_exists(0, $imageNode)) {
+                    throw new Exception('Bad');
+                } else {
+                    $imageNode = $imageNode[0];
+                }
+                $imageNode = $imageNode->find('img');
+                if (!array_key_exists(0, $imageNode)) {
+                    throw new Exception('Bad');
+                } else {
+                    $imageNode = $imageNode[0];
+                }
+                if (isset($imageNode->attr['data-thumb'])) {
+                    $tmp['image'] = $imageNode->attr['data-thumb'];
+                } else {
+                    $tmp['image'] = $imageNode->src;
+                }
                 $tmp['post_time'] = null;
 
-                $imageNode = $a->find('img')[0];
-
-                $tmp['image'] = $imageNode->src;
                 $foundLinks[] = $tmp;
+            } catch (Exception $e) {
+                continue;
             }
         }
         return $foundLinks;
@@ -53,6 +68,7 @@ class YoutubeParser
             // check if exist in db
 
             $url = $scheme . '://' . $host . $link['href'];;
+            //$url = $link['href'];;
             $videoLink = VideoPage::findOne(['url' => $url]);
 
             if (empty($videoLink)) {

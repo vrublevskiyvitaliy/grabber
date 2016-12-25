@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\parsers\models;
+namespace frontend\models\parsers;
 
 use Sunra\PhpSimple\HtmlDomParser;
 

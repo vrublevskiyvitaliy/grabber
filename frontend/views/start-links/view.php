@@ -35,4 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= Html::a('Parse', ['parse', 'id' => $model->start_link_id], ['class' => 'btn btn-primary']) ?>
+
+
 </div>

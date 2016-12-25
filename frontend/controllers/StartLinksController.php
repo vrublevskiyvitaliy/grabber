@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use frontend\models\StartLinks;
 use frontend\models\StartLinksSearch;
 
-use frontend\parsers\models\YoutubeParser;
+use frontend\models\parsers\YoutubeParser;
 
 /**
  * StartLinksController implements the CRUD actions for StartLinks model.
@@ -55,13 +55,18 @@ class StartLinksController extends Controller
      */
     public function actionView($id)
     {
-        $startPage = $this->findModel($id);
-
-        //YoutubeParser::addUnknownVideos($startPage);
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionParse($id)
+    {
+        $startPage = $this->findModel($id);
+
+        YoutubeParser::addUnknownVideos($startPage);
+
+        return $this->redirect(['view', 'id' => $startPage->start_link_id]);
     }
 
     /**

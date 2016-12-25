@@ -11,7 +11,7 @@ class VideoHelper
 {
     public static function getDownloadUrl(VideoPage $videoPage)
     {
-        $site = Site::findOne(Yii::$app->params['mainSiteId']);
+        $site = $videoPage->startLink->site;// Site::findOne(Yii::$app->params['mainSiteId']);
 
         $currentUrl = $videoPage->url;
 
