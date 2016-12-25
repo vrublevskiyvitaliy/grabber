@@ -42,7 +42,11 @@ class MaintenanceController extends Controller {
             ->all();
 
         foreach ($downloadedVideos as $video) {
+            //echo $video->video_page_id . "\n";
+            //echo PathHelper::getVideoPathForVideoPage($video) . "\n";
             $size = PathHelper::getFileSizeInMb($video);
+            //echo $size . "\n";
+
             if ($size < Yii::$app->params['minVideoSize']) {
                 $video->is_downloaded = 'problem';
                 $video->save();
