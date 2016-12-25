@@ -70,7 +70,7 @@ class StartLinks extends \yii\db\ActiveRecord
 
     public function getFolderName()
     {
-        $name = preg_replace("/[^A-Za-z]/", "", $this->tittle);
+        $name = preg_replace("/[^\w]/u", "", $this->tittle);
         return $name;
     }
 
