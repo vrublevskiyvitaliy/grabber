@@ -8,9 +8,9 @@ use frontend\models\StartLinks;
 use frontend\models\VideoPage;
 use yii\base\Exception;
 
-class YoutubeParser
+class YoutubeSearchParser
 {
-    public $name = 'Youtube';
+    public $name = 'YoutubeSearch';
 
     public static function getVideoLinksByStartLink(StartLinks $link)
     {

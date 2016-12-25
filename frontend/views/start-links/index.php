@@ -22,14 +22,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'start_link_id',
-            'url:url',
             'tittle',
-            'site_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'site.parser_name',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'open' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => 'Открыть на сайте',
+                            'aria-label' => 'Открыть на сайте',
+                            'data-pjax' => '0',
+                            'target' => '_blank',
+                            'class' => 'inline',
+                        ];
+                        $url = $model->url;
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-hd-video"></span>',
+                            $url,
+                            $options
+                        );
+                    },
+                ],
+                'template' => '{open} {view} {update} {delete}'
+            ],
         ],
     ]); ?>
 </div>
