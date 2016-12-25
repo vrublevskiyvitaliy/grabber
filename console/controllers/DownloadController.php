@@ -18,7 +18,7 @@ class DownloadController extends Controller {
 
             $download = DownloadQueue::find()
                 ->where(['download_status' => 'download_now'])
-                ->orderBy('add_time desc')
+                ->orderBy('add_time asc')
                 ->one();
 
             if (!empty($download)) {
