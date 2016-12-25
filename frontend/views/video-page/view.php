@@ -44,26 +44,56 @@ $this->params['breadcrumbs'][] = $this->title;
         <p> File size: <?= $model->getFileSizePrettyString() ?>  Mb </p>
 
         <?php if (!empty($model->lastDownloadFile)): ?>
-            <?= DetailView::widget([
-                'model' => $model->lastDownloadFile,
-                'attributes' => [
-                    [
-                        'attribute' => 'log',
-                        'value' => $model->lastDownloadFile->prettyLog,
-                        'format' => 'raw'
+            <?= Html::a('Log', '#', ['class' => 'btn btn-primary log_hidden', 'id' => 'js_log_toggle']) ?>
+            <div id="js_log" class="hidden">
+                <?= DetailView::widget([
+                    'model' => $model->lastDownloadFile,
+                    'attributes' => [
+                        [
+                            'attribute' => 'log',
+                            'value' => $model->lastDownloadFile->prettyLog,
+                            'format' => 'raw'
+                        ],
                     ],
-                ],
-            ]) ?>
+                ]) ?>
+            </div>
         <?php endif; ?>
 
-        <?= Html::a('Delete file', ['delete-video-file', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(
+            'Delete file',
+            [
+                'delete-video-file',
+                'id' => $model->video_page_id
+            ],
+            [
+                'class' => 'btn btn-primary',
+                'data' => [
+                    'confirm' => 'Точно видалити?',
+                ],
+            ]
+        ) ?>
 
     <?php elseif ($model->isDownloadingRightNow()): ?>
         <p>It's downloading right now!</p>
     <?php elseif (!$model->isInDownloadQueue()): ?>
-        <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(
+            'Download',
+            [
+                'download',
+                'id' => $model->video_page_id
+            ],
+            [
+                'class' => 'btn btn-primary',
+            ]) ?>
     <?php else:?>
         <p>It's going to be downloaded soon!</p>
     <?php endif; ?>
 
 </div>
+<?php $this->registerJsFile('js/video-page/view.js',
+    [
+        'depends' => [
+            \yii\web\JqueryAsset::className(),
+        ],
+    ]
+); ?>
