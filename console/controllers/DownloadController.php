@@ -23,6 +23,9 @@ class DownloadController extends Controller {
 
             if (!empty($download)) {
                 $videoFile = $download->videoPage;
+                $download->download_status = 'downloading';
+                $download->save();
+
                 VideoSaver::saveVideoPage($videoFile);
 
                 $download->download_status = 'downloaded';

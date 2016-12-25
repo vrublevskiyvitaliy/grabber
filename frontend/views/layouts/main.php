@@ -46,6 +46,7 @@ AppAsset::register($this);
                 ['label' => 'Like', 'url' => ['/video-page/index-like']],
                 ['label' => 'To download', 'url' => ['/video-page/index-to-download']],
                 ['label' => 'Problem downloads', 'url' => ['/video-page/index-problem-downloads']],
+                ['label' => 'Downloading now', 'url' => ['/video-page/index-downloading']],
                 ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
             ]
         ],

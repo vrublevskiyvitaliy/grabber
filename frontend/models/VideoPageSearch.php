@@ -80,6 +80,10 @@ class VideoPageSearch extends VideoPage
             $query->innerJoinWith('toDownloadVideos')
                 ->where(['download_status' => 'download_now'])
                 ->distinct();
+        } else if ($this->toDownload == 'downloading') {
+            $query->innerJoinWith('toDownloadVideos')
+                ->where(['download_status' => 'downloading'])
+                ->distinct();
         }
 
         if ($this->is_downloaded == 'yes') {
