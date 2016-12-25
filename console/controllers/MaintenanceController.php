@@ -36,12 +36,18 @@ class MaintenanceController extends Controller {
 
     public function actionCheckDownloaded()
     {
-        $downloadedVideos = VideoPage::findAll(['is_downloaded' => 'yes']);
+        $downloadedVideos = VideoPage::find()
+            ->where(['is_downloaded' => 'yes'])
+            ->orWhere(['is_downloaded' => 'problem'])
+            ->all();
 
         foreach ($downloadedVideos as $video) {
             $size = PathHelper::getFileSizeInMb($video);
             if ($size < Yii::$app->params['minVideoSize']) {
                 $video->is_downloaded = 'problem';
+                $video->save();
+            } else {
+                $video->is_downloaded = 'yes';
                 $video->save();
             }
         }

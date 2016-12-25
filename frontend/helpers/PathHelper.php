@@ -16,14 +16,16 @@ class PathHelper
     {
         $allFiles = scandir($folder);
 
-        $videoExtensions = ['.mp4'];
+        $videoExtensions = ['.mp4','.webm'];
 
         $videoFiles = [];
 
         foreach ($allFiles as $file) {
-            $currentExt = substr($file, -4);
-            if (in_array($currentExt, $videoExtensions)) {
-                $videoFiles[] = $file;
+            foreach ($videoExtensions as $ext) {
+                $currentExt = substr($file, -strlen($ext));
+                if (in_array($currentExt, $videoExtensions)) {
+                    $videoFiles[] = $file;
+                }
             }
         }
 
@@ -40,11 +42,12 @@ class PathHelper
         $videos = static::getAllVideosFromFolder($pathToType);
 
         foreach ($videos as $video) {
-            if ($video == $videoPage->video_page_id . '.mp4') {
+            $prefixLen = strlen((string)$videoPage->video_page_id);
+            $prefix = substr($video, 0, $prefixLen);
+            if ($prefix == (string)$videoPage->video_page_id) {
                 $path = $pathToType . $video;
             }
         }
-
         return $path;
     }
 
