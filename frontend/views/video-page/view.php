@@ -41,18 +41,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if($model->is_downloaded == 'yes'): ?>
         <?= Html::a('Open', ['open', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
         <br><br>
-        <p> File size: <?= $model->getFileSize() ?>  Mb </p>
+        <p> File size: <?= $model->getFileSizePrettyString() ?>  Mb </p>
 
         <?php if (!empty($model->lastDownloadFile)): ?>
             <?= DetailView::widget([
                 'model' => $model->lastDownloadFile,
                 'attributes' => [
-                    'log',
+                    [
+                        'attribute' => 'log',
+                        'value' => $model->lastDownloadFile->prettyLog,
+                        'format' => 'raw'
+                    ],
                 ],
             ]) ?>
         <?php endif; ?>
 
         <?= Html::a('Delete file', ['delete-video-file', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+
+    <?php elseif ($model->isDownloadingRightNow()): ?>
+        <p>It's downloading right now!</p>
     <?php elseif (!$model->isInDownloadQueue()): ?>
         <?= Html::a('Download', ['download', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
     <?php else:?>

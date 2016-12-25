@@ -58,4 +58,11 @@ class DownloadedVideo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(VideoPage::className(), ['video_page_id' => 'video_page_id']);
     }
+
+    public function getPrettyLog()
+    {
+        $log = $this->log;
+        $log = str_replace("[", "<br>[", $log);
+        return $log;
+    }
 }

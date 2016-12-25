@@ -117,4 +117,9 @@ class VideoPage extends \yii\db\ActiveRecord
     {
         return $this->getToDownloadVideos()->where(['download_status' => 'download_now'])->count();
     }
+
+    public function isDownloadingRightNow()
+    {
+        return $this->getToDownloadVideos()->where(['download_status' => 'downloading'])->count();
+    }
 }
