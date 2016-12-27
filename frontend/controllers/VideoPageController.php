@@ -55,6 +55,22 @@ class VideoPageController extends Controller
                 $params['VideoPageSearch']['is_downloaded'] = 'yes';
                 $title = 'Downloaded';
                 $viewFileName = 'index-downloaded';
+            } else if ($page == 'to-download') {
+                $params['VideoPageSearch']['toDownload'] = 'yes';
+                $title = 'To Download';
+            } else if ($page == 'like') {
+                $params['VideoPageSearch']['like_status'] = 'like';
+                $title = 'Liked video';
+            } else if ($page == 'best') {
+                $params['VideoPageSearch']['like_status'] = 'best';
+                $title = 'Best video';
+            } else if ($page == 'general') {
+                $params['VideoPageSearch']['is_hidden'] = 'no';
+                $params['VideoPageSearch']['is_downloaded'] = 'no';
+                $title = 'General';
+            } else if ($page == 'downloading') {
+                $params['VideoPageSearch']['toDownload'] = 'downloading';
+                $title = 'Downloading';
             }
         }
 
@@ -64,73 +80,6 @@ class VideoPageController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'title' => $title
-        ]);
-    }
-
-    public function actionIndexToDownload()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['toDownload'] = 'yes';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionIndexLike()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['like_status'] = 'like';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionIndexBest()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['like_status'] = 'best';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    public function actionIndexGeneral()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['is_hidden'] = 'no';
-        $params['VideoPageSearch']['is_downloaded'] = 'no';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionIndexDownloading()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['toDownload'] = 'downloading';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
         ]);
     }
 

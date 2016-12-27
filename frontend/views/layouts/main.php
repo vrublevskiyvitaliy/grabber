@@ -42,12 +42,12 @@ AppAsset::register($this);
             'label' => 'Listings',
             'items' => [
                 ['label' => 'Downloaded Videos', 'url' => Url::to(['video-page/index', 'page' => 'downloaded'])],
-                ['label' => 'General', 'url' => ['/video-page/index-general']],
-                ['label' => 'Best', 'url' => ['/video-page/index-best']],
-                ['label' => 'Like', 'url' => ['/video-page/index-like']],
-                ['label' => 'To download', 'url' => ['/video-page/index-to-download']],
+                ['label' => 'General', 'url' => Url::to(['video-page/index', 'page' => 'general'])],
+                ['label' => 'Best', 'url' => Url::to(['video-page/index', 'page' => 'best'])],
+                ['label' => 'Like', 'url' => Url::to(['video-page/index', 'page' => 'like'])],
+                ['label' => 'To download', 'url' => Url::to(['video-page/index', 'page' => 'to-download'])],
                 ['label' => 'Problem downloads', 'url' => Url::to(['video-page/index', 'page' => 'problem-downloads'])],
-                ['label' => 'Downloading now', 'url' => ['/video-page/index-downloading']],
+                ['label' => 'Downloading now', 'url' => Url::to(['video-page/index', 'page' => 'downloading'])],
                 ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
             ]
         ],
