@@ -43,18 +43,18 @@ class VideoPageController extends Controller
         $searchModel = new VideoPageSearch();
         $params = Yii::$app->request->queryParams;
         $title = 'Video Pages';
-        $viewFileName = 'index';
+        $showFileSize = false;
 
         if (Yii::$app->request->get('page')) {
             $page = Yii::$app->request->get('page');
             if ($page == 'problem-downloads') {
                 $params['VideoPageSearch']['is_downloaded'] = 'problem';
                 $title = 'Problem downloads';
-                $viewFileName = 'index-downloaded';
+                $showFileSize = true;
             } else if ($page == 'downloaded') {
                 $params['VideoPageSearch']['is_downloaded'] = 'yes';
                 $title = 'Downloaded';
-                $viewFileName = 'index-downloaded';
+                $showFileSize = true;
             } else if ($page == 'to-download') {
                 $params['VideoPageSearch']['toDownload'] = 'yes';
                 $title = 'To Download';
@@ -76,10 +76,11 @@ class VideoPageController extends Controller
 
         $dataProvider = $searchModel->search($params);
 
-        return $this->render($viewFileName, [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'title' => $title
+            'title' => $title,
+            'showFileSize' => $showFileSize,
         ]);
     }
 
