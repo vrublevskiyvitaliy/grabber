@@ -8,8 +8,9 @@ use frontend\helpers\VideoHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\VideoPageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $title string */
 
-$this->title = 'Downloaded Videos';
+$this->title = $title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="video-page-index">

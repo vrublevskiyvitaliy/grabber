@@ -41,25 +41,29 @@ class VideoPageController extends Controller
     public function actionIndex()
     {
         $searchModel = new VideoPageSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    public function actionIndexDownloaded()
-    {
-        $searchModel = new VideoPageSearch();
         $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['is_downloaded'] = 'yes';
+        $title = 'Video Pages';
+        $viewFileName = 'index';
+
+        if (Yii::$app->request->get('page')) {
+            $page = Yii::$app->request->get('page');
+            if ($page == 'problem-downloads') {
+                $params['VideoPageSearch']['is_downloaded'] = 'problem';
+                $title = 'Problem downloads';
+                $viewFileName = 'index-downloaded';
+            } else if ($page == 'downloaded') {
+                $params['VideoPageSearch']['is_downloaded'] = 'yes';
+                $title = 'Downloaded';
+                $viewFileName = 'index-downloaded';
+            }
+        }
+
         $dataProvider = $searchModel->search($params);
 
-        return $this->render('index-downloaded', [
+        return $this->render($viewFileName, [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title' => $title
         ]);
     }
 
@@ -125,19 +129,6 @@ class VideoPageController extends Controller
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionIndexProblemDownloads()
-    {
-        $searchModel = new VideoPageSearch();
-        $params = Yii::$app->request->queryParams;
-        $params['VideoPageSearch']['is_downloaded'] = 'problem';
-        $dataProvider = $searchModel->search($params);
-
-        return $this->render('index-downloaded', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

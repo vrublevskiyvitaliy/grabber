@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\helpers\PathHelper;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -40,12 +41,12 @@ AppAsset::register($this);
         [
             'label' => 'Listings',
             'items' => [
-                ['label' => 'Downloaded Videos', 'url' => ['/video-page/index-downloaded']],
+                ['label' => 'Downloaded Videos', 'url' => Url::to(['video-page/index', 'page' => 'downloaded'])],
                 ['label' => 'General', 'url' => ['/video-page/index-general']],
                 ['label' => 'Best', 'url' => ['/video-page/index-best']],
                 ['label' => 'Like', 'url' => ['/video-page/index-like']],
                 ['label' => 'To download', 'url' => ['/video-page/index-to-download']],
-                ['label' => 'Problem downloads', 'url' => ['/video-page/index-problem-downloads']],
+                ['label' => 'Problem downloads', 'url' => Url::to(['video-page/index', 'page' => 'problem-downloads'])],
                 ['label' => 'Downloading now', 'url' => ['/video-page/index-downloading']],
                 ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
             ]
