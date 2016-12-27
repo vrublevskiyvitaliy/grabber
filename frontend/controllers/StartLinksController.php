@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+
 use Yii;
 
 use yii\web\Controller;
@@ -11,7 +12,7 @@ use yii\filters\VerbFilter;
 use frontend\models\StartLinks;
 use frontend\models\StartLinksSearch;
 
-use frontend\models\parsers\YoutubeSearchParser;
+use frontend\helpers\SiteHelper;
 
 /**
  * StartLinksController implements the CRUD actions for StartLinks model.
@@ -64,7 +65,10 @@ class StartLinksController extends Controller
     {
         $startPage = $this->findModel($id);
 
-        YoutubeSearchParser::addUnknownVideos($startPage);
+        $site = $startPage->site;
+        $parserName = $site->parser_name;
+        $parser = SiteHelper::getParserByName($parserName);
+        $parser::addUnknownVideos($startPage);
 
         return $this->redirect(['view', 'id' => $startPage->start_link_id]);
     }

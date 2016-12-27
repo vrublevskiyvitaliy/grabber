@@ -93,4 +93,9 @@ class SiteHelper
 
         return $menu;
     }
+
+    public static function getParserByName($parserName) {
+        $type = 'frontend\\models\\parsers\\' . $parserName . 'Parser';
+        return Yii::createObject($type);
+    }
 }
