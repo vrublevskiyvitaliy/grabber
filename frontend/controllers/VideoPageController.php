@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\helpers\SiteHelper;
 use Yii;
 
 use yii\web\Controller;
@@ -42,38 +43,15 @@ class VideoPageController extends Controller
     {
         $searchModel = new VideoPageSearch();
         $params = Yii::$app->request->queryParams;
-        $title = 'Video Pages';
-        $showFileSize = false;
+        $page = '';
 
         if (Yii::$app->request->get('page')) {
             $page = Yii::$app->request->get('page');
-            if ($page == 'problem-downloads') {
-                $params['VideoPageSearch']['is_downloaded'] = 'problem';
-                $title = 'Problem downloads';
-                $showFileSize = true;
-            } else if ($page == 'downloaded') {
-                $params['VideoPageSearch']['is_downloaded'] = 'yes';
-                $title = 'Downloaded';
-                $showFileSize = true;
-            } else if ($page == 'to-download') {
-                $params['VideoPageSearch']['toDownload'] = 'yes';
-                $title = 'To Download';
-            } else if ($page == 'like') {
-                $params['VideoPageSearch']['like_status'] = 'like';
-                $title = 'Liked video';
-            } else if ($page == 'best') {
-                $params['VideoPageSearch']['like_status'] = 'best';
-                $title = 'Best video';
-            } else if ($page == 'general') {
-                $params['VideoPageSearch']['is_hidden'] = 'no';
-                $params['VideoPageSearch']['is_downloaded'] = 'no';
-                $title = 'General';
-            } else if ($page == 'downloading') {
-                $params['VideoPageSearch']['toDownload'] = 'downloading';
-                $title = 'Downloading';
-            }
         }
 
+        SiteHelper::setSearchParams($page, $params);
+        $title = SiteHelper::getTitleByPage($page);
+        $showFileSize = SiteHelper::isShowFileSizeColumn($page);
         $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
