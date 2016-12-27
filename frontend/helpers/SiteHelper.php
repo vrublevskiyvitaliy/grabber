@@ -2,6 +2,9 @@
 
 namespace frontend\helpers;
 
+use Yii;
+
+use yii\helpers\Url;
 
 class SiteHelper
 {
@@ -39,10 +42,11 @@ class SiteHelper
         'best' => 'Best video',
         'general' => 'General',
         'downloading' => 'Downloading',
-        '' => 'Video Pages',
+        '' => 'All Video Pages',
     ];
 
-    public static function setSearchParams($page, &$searchParams) {
+    public static function setSearchParams($page, &$searchParams)
+    {
         if (empty($page)) return;
 
         $params = static::$pageToParams[$page];
@@ -52,7 +56,8 @@ class SiteHelper
         }
     }
 
-    public static function getTitleByPage($page) {
+    public static function getTitleByPage($page)
+    {
         if (!array_key_exists($page, static::$pageToTitle)) {
             return '';
         } else {
@@ -60,12 +65,32 @@ class SiteHelper
         }
     }
 
-    public static function isShowFileSizeColumn($page) {
+    public static function isShowFileSizeColumn($page)
+    {
         if (!array_key_exists($page, static::$pageToParams)) {
             return false;
         } else {
             $params = static::$pageToParams[$page];
             return array_key_exists('is_downloaded', $params) && $params['is_downloaded'] <> 'no';
         }
+    }
+
+    public static function getMenuForNavBar()
+    {
+        $allNameOfPages = array_keys(static::$pageToTitle);
+
+        $menu = [];
+        foreach ($allNameOfPages as $page) {
+            $tmp = [];
+            $tmp['label'] = static::$pageToTitle[$page];
+            if (!empty($page)) {
+                $tmp['url'] = Url::to(['video-page/index', 'page' => $page]);
+            } else {
+                $tmp['url'] = Url::to(['video-page/index']);
+            }
+            $menu[] = $tmp;
+        }
+
+        return $menu;
     }
 }

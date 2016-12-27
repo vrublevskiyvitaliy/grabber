@@ -7,10 +7,10 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use frontend\assets\AppAsset;
 use frontend\helpers\PathHelper;
-use yii\helpers\Url;
+use frontend\helpers\SiteHelper;
 
 AppAsset::register($this);
 ?>
@@ -40,16 +40,7 @@ AppAsset::register($this);
         ['label' => 'Start Pages', 'url' => ['/start-links/index']],
         [
             'label' => 'Listings',
-            'items' => [
-                ['label' => 'Downloaded Videos', 'url' => Url::to(['video-page/index', 'page' => 'downloaded'])],
-                ['label' => 'General', 'url' => Url::to(['video-page/index', 'page' => 'general'])],
-                ['label' => 'Best', 'url' => Url::to(['video-page/index', 'page' => 'best'])],
-                ['label' => 'Like', 'url' => Url::to(['video-page/index', 'page' => 'like'])],
-                ['label' => 'To download', 'url' => Url::to(['video-page/index', 'page' => 'to-download'])],
-                ['label' => 'Problem downloads', 'url' => Url::to(['video-page/index', 'page' => 'problem-downloads'])],
-                ['label' => 'Downloading now', 'url' => Url::to(['video-page/index', 'page' => 'downloading'])],
-                ['label' => 'All Video Pages', 'url' => ['/video-page/index']],
-            ]
+            'items' => SiteHelper::getMenuForNavBar(),
         ],
         ['label' => 'Rate it', 'url' => ['/video-page/rate-video']],
     ];
