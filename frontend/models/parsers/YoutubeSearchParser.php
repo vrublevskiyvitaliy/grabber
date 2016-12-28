@@ -8,16 +8,15 @@ use frontend\models\StartLinks;
 use frontend\models\VideoPage;
 use yii\base\Exception;
 
-class YoutubeSearchParser
+class YoutubeSearchParser extends Parser
 {
     public $name = 'YoutubeSearch';
 
     public static function getVideoLinksByStartLink(StartLinks $link)
     {
-        $html = HtmlDomParser::file_get_html($link->url);
+        $html = static::getHtmlDomParserByUrl($link->url);
 
         $blocks = $html->find('.yt-lockup-dismissable');
-///$blocks = $html->find('.item-section');
         $foundLinks = [];
         foreach($blocks as $block) {
 
@@ -27,7 +26,6 @@ class YoutubeSearchParser
                 $a = $h3->find('a')[0];
 
                 $tmp = [];
-                //tmp['href'] = explode('?', $a->href, 2)[0];
                 $tmp['href'] = $a->href;
                 $tmp['title'] = $a->title;
 
@@ -68,7 +66,6 @@ class YoutubeSearchParser
             // check if exist in db
 
             $url = $scheme . '://' . $host . $link['href'];;
-            //$url = $link['href'];;
             $videoLink = VideoPage::findOne(['url' => $url]);
 
             if (empty($videoLink)) {

@@ -16,7 +16,10 @@ memcached -u memcached -d -m 30 -l 127.0.0.1 -p 11211
 ```
 ### Add cron work
 ```
+Download video:
 * * * * * php /path/to/grabber/yii download/download-now > /dev/null 2>&1
+Parse pages to find new video:
+* * * * * php /path/to/grabber/yii parse/parse-start-links > /dev/null 2>&1
 ```
 
 #### Setup auto start
@@ -37,4 +40,5 @@ To debug turn of PHP-FPM:
 Check that PHP-FPM is listening on port 9000:
 
     lsof -Pni4 | grep LISTEN | grep php
+
 
