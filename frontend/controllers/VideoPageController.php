@@ -45,8 +45,8 @@ class VideoPageController extends Controller
         $params = Yii::$app->request->queryParams;
         $page = '';
 
-        if (Yii::$app->request->get('page')) {
-            $page = Yii::$app->request->get('page');
+        if (Yii::$app->request->get('pageName')) {
+            $page = Yii::$app->request->get('pageName');
         }
 
         SiteHelper::setSearchParams($page, $params);

@@ -84,7 +84,7 @@ class SiteHelper
             $tmp = [];
             $tmp['label'] = static::$pageToTitle[$page];
             if (!empty($page)) {
-                $tmp['url'] = Url::to(['video-page/index', 'page' => $page]);
+                $tmp['url'] = Url::to(['video-page/index', 'pageName' => $page]);
             } else {
                 $tmp['url'] = Url::to(['video-page/index']);
             }
