@@ -11,6 +11,7 @@ use Yii;
  * @property string $url
  * @property string $tittle
  * @property integer $site_id
+ * @property integer $search_depth
  *
  * @property Site $site
  * @property VideoPage[] $videoPages
@@ -32,7 +33,7 @@ class StartLinks extends \yii\db\ActiveRecord
     {
         return [
             [['url', 'tittle', 'site_id'], 'required'],
-            [['site_id'], 'integer'],
+            [['site_id', 'search_depth'], 'integer'],
             [['url'], 'string', 'max' => 255],
             [['tittle'], 'string', 'max' => 45],
             [['site_id'], 'exist', 'skipOnError' => true, 'targetClass' => Site::className(), 'targetAttribute' => ['site_id' => 'site_id']],
@@ -58,6 +59,7 @@ class StartLinks extends \yii\db\ActiveRecord
             'url' => 'Url',
             'tittle' => 'Tittle',
             'site_id' => 'Site ID',
+            'search_depth' => 'Search Depth',
         ];
     }
 
