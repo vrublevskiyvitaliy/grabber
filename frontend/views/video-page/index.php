@@ -34,7 +34,7 @@ $gridColumns = [
                 'class' => 'inline',
             ];
             $url = Url::to([
-                'video-page/index-downloaded',
+                'video-page/index',
                 'VideoPageSearch' => [
                     'startLinkTitle' => $model->startLink->tittle,
                     'title' => '',
