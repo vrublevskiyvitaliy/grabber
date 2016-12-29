@@ -68,10 +68,8 @@ class VideoPageController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
         $this->layout = 'video-page';
-
-        $path = PathHelper::getVideoPathForVideoPage($model);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model
@@ -133,7 +131,7 @@ class VideoPageController extends Controller
 
         $path = PathHelper::getVideoPathForVideoPage($model);
 
-        $out = shell_exec(' open  ' . $path);
+        shell_exec(' open  ' . $path);
 
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
@@ -141,6 +139,7 @@ class VideoPageController extends Controller
     public function actionRateVideo()
     {
         $getRandom = true;
+        $model = null;
         if (Yii::$app->request->get('id') && Yii::$app->request->get('status')) {
             $model = VideoPage::findOne(Yii::$app->request->get('id'));
             $status = Yii::$app->request->get('status');
