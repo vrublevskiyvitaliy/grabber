@@ -42,10 +42,6 @@ a.no-dec {
   text-decoration: none;
 }
 
-.container {
-  margin: auto;
-  position: relative;
-}
 .container.container-wide {
   max-width: 1600px;
   padding: 0 32px 0 24px;

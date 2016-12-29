@@ -77,6 +77,21 @@ class VideoPageController extends Controller
     }
 
     /**
+     * Displays a single VideoPage model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionPreview($id)
+    {
+        $this->layout = 'video-page';
+        $model = $this->findModel($id);
+
+        return $this->render('preview', [
+            'model' => $model
+        ]);
+    }
+
+    /**
      * Creates a new VideoPage model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
