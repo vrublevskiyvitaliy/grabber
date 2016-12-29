@@ -34,13 +34,13 @@ TOTAL_IMAGES=`echo "$COLS*$ROWS" | bc`
 
 # get total number of frames in the video
 # ffprobe is fast but not 100% reliable. It might not detect number of frames correctly!
-NB_FRAMES=`ffprobe -show_streams "$MOVIE" 2> /dev/null | grep nb_frames | head -n1 | sed 's/.*=//'`
+NB_FRAMES=`/usr/local/bin/ffprobe -show_streams "$MOVIE" 2> /dev/null | grep nb_frames | head -n1 | sed 's/.*=//'`
 
 if [ "$NB_FRAMES" = "N/A" ]; then
     # as a fallback we'll use ffmpeg. This command basically copies this
     # video to /dev/null and it counts frames in the process.
     # It's slower (few seconds usually) than ffprobe but works everytime.
-    NB_FRAMES=`ffmpeg -nostats -i "$MOVIE" -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk '{split($0,a,"fps")}END{print a[1]}' | sed 's/.*= *//'`
+    NB_FRAMES=`/usr/local/bin/ffmpeg -nostats -i "$MOVIE" -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk '{split($0,a,"fps")}END{print a[1]}' | sed 's/.*= *//'`
 fi
 
 # calculate offset between two screenshots, drop the floating point part
@@ -50,7 +50,7 @@ echo "capture every ${NTH_FRAME}th frame out of $NB_FRAMES frames"
 # make sure output dir exists
 mkdir -p $OUT_DIR
 
-FFMPEG_CMD="ffmpeg -loglevel panic -i \"$MOVIE\" -y -frames 1 -q:v 1 -vf \"select=not(mod(n\,$NTH_FRAME)),scale=-1:${HEIGHT},tile=${COLS}x${ROWS}\" \"$OUT_FILEPATH\""
+FFMPEG_CMD="/usr/local/bin/ffmpeg -loglevel panic -i \"$MOVIE\" -y -frames 1 -q:v 1 -vf \"select=not(mod(n\,$NTH_FRAME)),scale=-1:${HEIGHT},tile=${COLS}x${ROWS}\" \"$OUT_FILEPATH\""
 
 eval $FFMPEG_CMD
 echo $OUT_FILEPATH
