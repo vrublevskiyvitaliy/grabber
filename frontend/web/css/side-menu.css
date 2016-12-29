@@ -1,0 +1,52 @@
+.side-menu {
+  float: left;
+  padding: 16px;
+  width: 256px;
+}
+.side-menu.sub-side-menu {
+  margin-left: -32px;
+}
+
+.side-menu__items-list, .side-menu__subitems-list {
+  list-style: none;
+}
+
+.side-menu__subitems-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: all ease 0.5s;
+}
+.side-menu__subitems-list.open {
+  max-height: 1000px;
+}
+
+.side-menu__item {
+  cursor: pointer;
+}
+.side-menu__item .side-menu__item-wrap {
+  padding: 12px 8px 14px 16px;
+  border-radius: 2px;
+}
+.side-menu__item .side-menu__item-wrap.active {
+  background-color: #e0e0e0;
+}
+.side-menu__item .side-menu__item-wrap:hover {
+  background-color: #eeeeee;
+}
+.side-menu__item .material-icons + .side-menu__item-text {
+  margin-left: 12px;
+}
+.side-menu__item a {
+  color: #333333;
+  display: block;
+}
+.side-menu__item.side-menu__subitem .side-menu__item-wrap {
+  padding-left: 56px;
+}
+
+.sub-side-menu .side-menu__item-wrap.active {
+  background-color: #e0e0e0;
+}
+.sub-side-menu .side-menu__item-wrap:hover {
+  background-color: #eeeeee;
+}

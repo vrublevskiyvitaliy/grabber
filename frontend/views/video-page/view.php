@@ -10,10 +10,11 @@ use frontend\helpers\VideoHelper;
 $this->title = $model->video_page_id;
 $this->params['breadcrumbs'][] = ['label' => 'Video Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['video_page_id'] = $model->video_page_id;
+
 ?>
 <div class="video-page-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>

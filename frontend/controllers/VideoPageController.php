@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use frontend\helpers\SiteHelper;
 use Yii;
 
 use yii\web\Controller;
@@ -10,11 +9,11 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use common\models\DownloadQueue;
-
 use frontend\models\VideoPage;
 use frontend\models\VideoPageSearch;
-use frontend\helpers\PathHelper;
 
+use frontend\helpers\PathHelper;
+use frontend\helpers\SiteHelper;
 /**
  * VideoPageController implements the CRUD actions for VideoPage model.
  */
@@ -70,6 +69,7 @@ class VideoPageController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $this->layout = 'video-page';
 
         $path = PathHelper::getVideoPathForVideoPage($model);
 
