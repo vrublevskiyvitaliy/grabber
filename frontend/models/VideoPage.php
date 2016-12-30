@@ -21,9 +21,14 @@ use frontend\helpers\PathHelper;
  * @property string $like_status
  * @property string $is_hidden
  * @property string $is_downloaded
+ * @property integer $origin_video_page_id
+ * @property string $preview_status
  *
+ * @property DownloadQueue[] $downloadQueues
  * @property DownloadedVideo[] $downloadedVideos
  * @property StartLinks $startLink
+ * @property VideoPage $originVideoPage
+ * @property VideoPage[] $videoPages
  */
 class VideoPage extends \yii\db\ActiveRecord
 {
@@ -42,11 +47,12 @@ class VideoPage extends \yii\db\ActiveRecord
     {
         return [
             [['start_link_id', 'url', 'image_url', 'tittle'], 'required'],
-            [['start_link_id'], 'integer'],
+            [['start_link_id', 'origin_video_page_id'], 'integer'],
             [['create_time', 'post_time'], 'safe'],
-            [['like_status', 'is_hidden', 'is_downloaded'], 'string'],
+            [['like_status', 'is_hidden', 'is_downloaded', 'preview_status'], 'string'],
             [['url', 'image_url', 'tittle'], 'string', 'max' => 255],
             [['start_link_id'], 'exist', 'skipOnError' => true, 'targetClass' => StartLinks::className(), 'targetAttribute' => ['start_link_id' => 'start_link_id']],
+            [['origin_video_page_id'], 'exist', 'skipOnError' => true, 'targetClass' => VideoPage::className(), 'targetAttribute' => ['origin_video_page_id' => 'video_page_id']],
         ];
     }
 
@@ -66,7 +72,17 @@ class VideoPage extends \yii\db\ActiveRecord
             'like_status' => 'Like Status',
             'is_hidden' => 'Is Hidden',
             'is_downloaded' => 'Is Downloaded',
+            'origin_video_page_id' => 'Origin Video Page ID',
+            'preview_status' => 'Preview Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDownloadQueues()
+    {
+        return $this->hasMany(DownloadQueue::className(), ['video_page_id' => 'video_page_id']);
     }
 
     /**

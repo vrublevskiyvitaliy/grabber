@@ -16,7 +16,7 @@ class PathHelper
     {
         $allFiles = scandir($folder);
 
-        $videoExtensions = ['.mp4','.webm'];
+        $videoExtensions = ['.mp4','.webm','.mkv'];
 
         $videoFiles = [];
 
