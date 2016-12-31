@@ -65,6 +65,15 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionGalleryImage()
+    {
+        $id = Yii::$app->request->get('id');
+
+        $filePath = '/Users/vitaliyvrublevskiy/b/b/b/gallery/' . $id . '.jpg';
+
+        return Yii::$app->response->sendFile($filePath, null, ['inline' => true]);
+    }
+
     /**
      * Displays homepage.
      *
