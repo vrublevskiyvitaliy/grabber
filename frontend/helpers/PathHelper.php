@@ -44,7 +44,7 @@ class PathHelper
         foreach ($videos as $video) {
             $prefixLen = strlen((string)$videoPage->video_page_id);
             $prefix = substr($video, 0, $prefixLen);
-            if ($prefix == (string)$videoPage->video_page_id) {
+            if ($prefix == (string)$videoPage->video_page_id && $video[$prefixLen] == '.')   {
                 $path = $pathToType . $video;
             }
         }
