@@ -41,4 +41,7 @@ Check that PHP-FPM is listening on port 9000:
 
     lsof -Pni4 | grep LISTEN | grep php
 
+#### Scripts 
+
+    ./yii preview/create
 

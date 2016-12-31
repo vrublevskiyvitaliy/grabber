@@ -21,7 +21,7 @@ $this->beginContent('@app/views/layouts/main.php');?>
             ],
             [
                 'label' => 'Предпросмотр',
-                'url' => ['video-page/index'],
+                'url' => ['video-page/preview','id' => $this->params['video_page_id']],
             ],
         ];
         ?>
