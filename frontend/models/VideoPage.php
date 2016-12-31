@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use frontend\helpers\VideoHelper;
 use Yii;
 
 use common\models\DownloadQueue;
@@ -23,6 +24,7 @@ use frontend\helpers\PathHelper;
  * @property string $is_downloaded
  * @property integer $origin_video_page_id
  * @property string $preview_status
+ * @property integer $duration
  *
  * @property DownloadQueue[] $downloadQueues
  * @property DownloadedVideo[] $downloadedVideos
@@ -47,13 +49,22 @@ class VideoPage extends \yii\db\ActiveRecord
     {
         return [
             [['start_link_id', 'url', 'image_url', 'tittle'], 'required'],
-            [['start_link_id', 'origin_video_page_id'], 'integer'],
+            [['start_link_id', 'origin_video_page_id', 'duration'], 'integer'],
             [['create_time', 'post_time'], 'safe'],
             [['like_status', 'is_hidden', 'is_downloaded', 'preview_status'], 'string'],
             [['url', 'image_url', 'tittle'], 'string', 'max' => 255],
             [['start_link_id'], 'exist', 'skipOnError' => true, 'targetClass' => StartLinks::className(), 'targetAttribute' => ['start_link_id' => 'start_link_id']],
             [['origin_video_page_id'], 'exist', 'skipOnError' => true, 'targetClass' => VideoPage::className(), 'targetAttribute' => ['origin_video_page_id' => 'video_page_id']],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->duration = VideoHelper::getDuration($this);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -74,6 +85,7 @@ class VideoPage extends \yii\db\ActiveRecord
             'is_downloaded' => 'Is Downloaded',
             'origin_video_page_id' => 'Origin Video Page ID',
             'preview_status' => 'Preview Status',
+            'duration' => 'Duration',
         ];
     }
 
@@ -137,5 +149,14 @@ class VideoPage extends \yii\db\ActiveRecord
     public function isDownloadingRightNow()
     {
         return $this->getToDownloadVideos()->where(['download_status' => 'downloading'])->count();
+    }
+
+    public function getPrettyDuration()
+    {
+        if (empty($this->duration)) {
+            return '';
+        }
+
+        return gmdate("H:i:s", $this->duration);
     }
 }

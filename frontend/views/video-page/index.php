@@ -51,6 +51,12 @@ $gridColumns = [
         'attribute' => 'tittle',
         'contentOptions' => ['style' => ['max-width' => '580px;', 'height' => '240px', 'white-space' =>'pre-wrap']]
     ],
+    [
+        'attribute' => 'duration',
+        'content' => function ($model) {
+            return $model->getPrettyDuration();
+        },
+    ],
 ];
 
 if ($showFileSize) {

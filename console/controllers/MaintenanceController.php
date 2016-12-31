@@ -7,6 +7,8 @@ use Yii;
 use \yii\console\Controller;
 
 use frontend\helpers\PathHelper;
+use frontend\helpers\VideoHelper;
+
 use frontend\models\VideoPage;
 
 class MaintenanceController extends Controller {
@@ -83,4 +85,10 @@ class MaintenanceController extends Controller {
         return $doubleVideos;
     }
 
+    public function actionSetDurations()
+    {
+        foreach (VideoPage::find()->all() as $videoPage) {
+            $videoPage->save();
+        }
+    }
 }
