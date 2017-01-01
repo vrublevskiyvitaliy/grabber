@@ -175,13 +175,18 @@ class VideoPageController extends Controller
             $allWithoutEstimation = VideoPage::find()
                 ->select(['video_page_id'])
                 ->where(['like_status' => 'pending'])
+                ->andWhere(['is_hidden' => 'no'])
+                ->andWhere(['is_downloaded' => 'no'])
                 ->asArray()
                 ->all();
 
-            $randomNumber = array_rand($allWithoutEstimation);
-            $randomId = $allWithoutEstimation[$randomNumber]['video_page_id'];
 
-            $model = $this->findModel($randomId);
+            if (!empty($allWithoutEstimation)) {
+                $randomNumber = array_rand($allWithoutEstimation);
+                $randomId = $allWithoutEstimation[$randomNumber]['video_page_id'];
+
+                $model = $this->findModel($randomId);
+            }
         }
 
         return $this->render('rate-video', ['model' => $model]);
