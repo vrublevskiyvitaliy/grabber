@@ -95,8 +95,7 @@ class PreviewController extends Controller
         }
 
         $videoPage = VideoPage::find()
-            ->where(['is_downloaded' => 'no'])
-            ->andWhere(['is_hidden' => 'no'])
+            ->where(['is_hidden' => 'no'])
             ->andWhere(['preview_status' => 'no'])
             ->orderBy('create_time')
             ->one();
