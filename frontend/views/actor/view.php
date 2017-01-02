@@ -2,9 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Actor */
+/* @var $searchModel frontend\models\VideoPageSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->actor_id;
 $this->params['breadcrumbs'][] = ['label' => 'Actors', 'url' => ['index']];
@@ -32,5 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'actor_name',
         ],
     ]) ?>
+
+    <h2>All Video Pages: </h2>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            'startLink.tittle',
+            'tittle',
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>

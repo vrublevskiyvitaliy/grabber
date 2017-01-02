@@ -51,4 +51,15 @@ class Actor extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ActorToVideoPage::className(), ['actor_id' => 'actor_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVideoPages()
+    {
+        return $this->hasMany(VideoPage::className(), ['video_page_id' => 'video_page_id'])
+            ->viaTable('actor_to_video_page', ['actor_id' => 'actor_id']);
+    }
+
+
 }

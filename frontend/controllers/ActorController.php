@@ -8,6 +8,7 @@ use frontend\models\ActorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use frontend\models\VideoPageSearch;
 
 /**
  * ActorController implements the CRUD actions for Actor model.
@@ -51,8 +52,20 @@ class ActorController extends Controller
      */
     public function actionView($id)
     {
+
+        $searchModel = new VideoPageSearch();
+
+        $params = [
+            'VideoPageSearch' => [
+                'actorId' => $id
+            ]
+        ];
+        $dataProvider = $searchModel->search($params);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 

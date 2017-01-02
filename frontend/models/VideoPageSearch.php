@@ -14,6 +14,7 @@ class VideoPageSearch extends VideoPage
 {
     public $startLinkTitle;
     public $toDownload;
+    public $actorId;
 
     /**
      * @inheritdoc
@@ -21,7 +22,7 @@ class VideoPageSearch extends VideoPage
     public function rules()
     {
         return [
-            [['video_page_id', 'start_link_id'], 'integer'],
+            [['video_page_id', 'start_link_id', 'actorId'], 'integer'],
             [['url', 'image_url', 'tittle', 'is_downloaded', 'startLinkTitle', 'toDownload','like_status', 'is_hidden'], 'safe'],
         ];
     }
@@ -61,6 +62,12 @@ class VideoPageSearch extends VideoPage
         }
 
         $query->joinWith('startLink');
+
+        if (isset($this->actorId)) {
+            $query->joinWith('actors');
+            $query->andWhere(['actor_to_video_page.actor_id' => $this->actorId]);
+            $query->distinct();
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
