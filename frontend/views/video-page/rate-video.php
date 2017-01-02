@@ -18,31 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (empty($model)): ?>
         <p>Всі відео вже були оцінені!</p>
     <?php else: ?>
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                [
-                    'attribute' => 'startLink.tittle',
-                    'label' => 'Тема'
-                ],
-                [
-                    'attribute' => 'tittle',
-                    'label' => 'Назва'
-                ],
-                [
-                    'attribute' => 'image_url',
-                    'label' => 'Preview',
-                    'value' => $this->render('/gallery/preview-gallery', ['model' => $model]),
-                    'format' => 'raw',
-                    'contentOptions' => ['style' => ['height' => '400px', 'white-space' =>'pre-wrap']]
-                ],
-                [
-                    'attribute' => 'url',
-                    'value' => Html::a('Watch', VideoHelper::getDownloadUrl($model)),
-                    'format' => 'raw'
-                ]
-            ],
-        ]) ?>
+        <?= $this->render('detail-view', ['model' => $model]) ?>
 
         <div style="text-align: center;">
             <?= Html::a(
