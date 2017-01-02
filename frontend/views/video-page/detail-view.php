@@ -32,6 +32,11 @@ use frontend\helpers\VideoHelper;
             'attribute' => 'url',
             'value' => Html::a('Watch', VideoHelper::getDownloadUrl($model)),
             'format' => 'raw'
-        ]
+        ],
+        [
+            'attribute' => 'duration',
+            'value' => $model->getPrettyDuration(),
+            'format' => 'raw'
+        ],
     ],
 ]) ?>
