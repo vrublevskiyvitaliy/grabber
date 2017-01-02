@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tittle',
             'site_id',
             'search_depth',
+            'is_active',
         ],
     ]) ?>
 

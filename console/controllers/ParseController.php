@@ -11,7 +11,7 @@ class ParseController extends Controller {
 
     public function actionParseStartLinks()
     {
-        foreach (StartLinks::find()->each(10) as $startLink) {
+        foreach (StartLinks::find()->where(['is_active' => 'yes'])->each(10) as $startLink) {
             $site = $startLink->site;
             $parserName = $site->parser_name;
             $parser = SiteHelper::getParserByName($parserName);
