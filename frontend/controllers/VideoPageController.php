@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Actor;
 use frontend\models\ActorSearch;
+use frontend\models\ActorToVideoPage;
 use Yii;
 
 use yii\web\Controller;
@@ -272,6 +273,15 @@ class VideoPageController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionDeleteActor($actor_id, $video_page_id)
+    {
+        ActorToVideoPage::findOne(['actor_id' => $actor_id, 'video_page_id' => $video_page_id])->delete();
+
+        return $this->redirect(['actors', 'id' => $video_page_id]);
+    }
+
+
 
     /**
      * Finds the VideoPage model based on its primary key value.

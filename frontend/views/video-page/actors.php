@@ -37,8 +37,19 @@ $this->params['video_page_id'] = $model->video_page_id;
                         $options
                     );
                 },
+                'delete' => function ($url, $model, $key) {
+                    $url = Url::to([
+                        'video-page/delete-actor',
+                        'actor_id' => $model->actor_id,
+                        'video_page_id' => $this->params['video_page_id']
+                    ]);
+                    return Html::a(
+                        'Delete',
+                        $url
+                    );
+                },
             ],
-            'template' => '{view}'
+            'template' => '{view} {delete}'
         ],
     ],
 ]); ?>
