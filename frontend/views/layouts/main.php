@@ -37,6 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Actors', 'url' => ['/actor/index']],
         ['label' => 'Start Pages', 'url' => ['/start-links/index']],
         [
             'label' => 'Listings',
