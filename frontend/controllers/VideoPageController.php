@@ -92,24 +92,6 @@ class VideoPageController extends Controller
     }
 
     /**
-     * Creates a new VideoPage model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new VideoPage();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->video_page_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
      * Updates an existing VideoPage model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
