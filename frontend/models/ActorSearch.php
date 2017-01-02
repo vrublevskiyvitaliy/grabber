@@ -12,13 +12,14 @@ use frontend\models\Actor;
  */
 class ActorSearch extends Actor
 {
+    public $videoPageId;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['actor_id'], 'integer'],
+            [['actor_id', 'videoPageId'], 'integer'],
             [['actor_name'], 'safe'],
         ];
     }
@@ -55,6 +56,12 @@ class ActorSearch extends Actor
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        if (isset($this->videoPageId)) {
+            $query->joinWith('videoPages');
+            $query->andWhere(['actor_to_video_page.video_page_id' => $this->videoPageId]);
+            $query->distinct();
         }
 
         // grid filtering conditions

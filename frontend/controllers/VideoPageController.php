@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Actor;
+use frontend\models\ActorSearch;
 use Yii;
 
 use yii\web\Controller;
@@ -73,6 +75,25 @@ class VideoPageController extends Controller
 
         return $this->render('view', [
             'model' => $model
+        ]);
+    }
+
+    public function actionActors($id)
+    {
+        $this->layout = 'video-page';
+        $model = $this->findModel($id);
+
+        $searchModel = new ActorSearch();
+        $params = [
+            'ActorSearch' => [
+                'videoPageId' => $id
+            ]
+        ];
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('actors', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
