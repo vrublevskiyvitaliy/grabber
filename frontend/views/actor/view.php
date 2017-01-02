@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Actor */
@@ -44,7 +45,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'startLink.tittle',
             'tittle',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        $options = [
+                            'target' => '_blank',
+                            'class' => 'inline',
+                        ];
+
+                        $url = Url::to(['video-page/view', 'id' => $model->video_page_id]);
+                        return Html::a(
+                            'View',
+                            $url,
+                            $options
+                        );
+                    },
+                ],
+                'template' => '{view}'
+            ]
         ],
     ]); ?>
 
