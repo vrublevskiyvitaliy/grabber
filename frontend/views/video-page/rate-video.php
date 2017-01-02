@@ -21,12 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'startLink.tittle',
-                'tittle',
+                [
+                    'attribute' => 'startLink.tittle',
+                    'label' => 'Тема'
+                ],
+                [
+                    'attribute' => 'tittle',
+                    'label' => 'Назва'
+                ],
                 [
                     'attribute' => 'image_url',
-                    'value' => $model->image_url,
-                    'format' => ['image',['width'=>'400','height'=>'300']],
+                    'label' => 'Preview',
+                    'value' => $this->render('/gallery/preview-gallery', ['model' => $model]),
+                    'format' => 'raw',
+                    'contentOptions' => ['style' => ['height' => '400px', 'white-space' =>'pre-wrap']]
                 ],
                 [
                     'attribute' => 'url',
