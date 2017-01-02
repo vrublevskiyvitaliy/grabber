@@ -40,7 +40,7 @@ $this->params['video_page_id'] = $model->video_page_id;
     ]) ?>
 
     <?php if($model->is_downloaded == 'yes'): ?>
-        <?= Html::a('Open', ['open', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Open', ['open', 'id' => $model->video_page_id, 'action' => 'view'], ['class' => 'btn btn-primary']) ?>
         <br><br>
         <p> File size: <?= $model->getFileSizePrettyString() ?>  Mb </p>
 

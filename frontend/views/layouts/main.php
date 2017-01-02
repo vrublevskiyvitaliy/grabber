@@ -43,6 +43,7 @@ AppAsset::register($this);
             'items' => SiteHelper::getMenuForNavBar(),
         ],
         ['label' => 'Rate it', 'url' => ['/video-page/rate-video']],
+        ['label' => 'Watch random', 'url' => ['/video-page/watch-random']],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

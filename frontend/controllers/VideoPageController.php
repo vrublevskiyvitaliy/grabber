@@ -122,7 +122,7 @@ class VideoPageController extends Controller
         return $this->redirect(['view', 'id' => $model->video_page_id]);
     }
 
-    public function actionOpen($id)
+    public function actionOpen($id, $action)
     {
         $model = $this->findModel($id);
 
@@ -130,7 +130,11 @@ class VideoPageController extends Controller
 
         shell_exec(' open  ' . $path);
 
-        return $this->redirect(['view', 'id' => $model->video_page_id]);
+        $redirectParams = [$action];
+        if ($action == 'view') {
+            $redirectParams['id'] = $model->video_page_id;
+        }
+        return $this->redirect($redirectParams);
     }
 
     public function actionRateVideo()
@@ -173,7 +177,28 @@ class VideoPageController extends Controller
 
         return $this->render('rate-video', ['model' => $model]);
     }
-    
+
+
+    public function actionWatchRandom()
+    {
+        $model = null;
+
+        $allDownloaded = VideoPage::find()
+            ->select(['video_page_id'])
+            ->where(['is_downloaded' => 'yes'])
+            ->asArray()
+            ->all();
+
+        if (!empty($allDownloaded)) {
+            $randomNumber = array_rand($allDownloaded);
+            $randomId = $allDownloaded[$randomNumber]['video_page_id'];
+
+            $model = $this->findModel($randomId);
+        }
+
+        return $this->render('watch-random-video', ['model' => $model]);
+    }
+
     public function actionDeleteVideoFile($id)
     {
         $model = $this->findModel($id);
