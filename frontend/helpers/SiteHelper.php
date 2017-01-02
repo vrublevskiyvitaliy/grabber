@@ -35,12 +35,12 @@ class SiteHelper
     ];
 
     public static $pageToTitle = [
-        'problem-downloads' => 'Problem downloads',
-        'downloaded' => 'Downloaded',
-        'to-download' => 'To Download',
-        'like' => 'Liked video',
-        'best' => 'Best video',
         'general' => 'General',
+        'downloaded' => 'Downloaded',
+        'best' => 'Best video',
+        'like' => 'Liked video',
+        'problem-downloads' => 'Problem downloads',
+        'to-download' => 'To Download',
         'downloading' => 'Downloading',
         '' => 'All Video Pages',
     ];
