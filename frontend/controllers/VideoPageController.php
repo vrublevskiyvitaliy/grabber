@@ -110,7 +110,7 @@ class VideoPageController extends Controller
         }
     }
 
-    public function actionDownload($id)
+    public function actionDownload($id, $action)
     {
         $model = $this->findModel($id);
 
@@ -119,7 +119,12 @@ class VideoPageController extends Controller
         $downloadQueue->video_page_id = $id;
         $downloadQueue->save();
 
-        return $this->redirect(['view', 'id' => $model->video_page_id]);
+        $redirectParams = [$action];
+        if ($action == 'view') {
+            $redirectParams['id'] = $model->video_page_id;
+        }
+
+        return $this->redirect($redirectParams);
     }
 
     public function actionOpen($id, $action)
@@ -134,6 +139,7 @@ class VideoPageController extends Controller
         if ($action == 'view') {
             $redirectParams['id'] = $model->video_page_id;
         }
+
         return $this->redirect($redirectParams);
     }
 
@@ -197,6 +203,26 @@ class VideoPageController extends Controller
         }
 
         return $this->render('watch-random-video', ['model' => $model]);
+    }
+
+    public function actionDownloadRandom()
+    {
+        $model = null;
+
+        $allNotDownloaded = VideoPage::find()
+            ->select(['video_page_id'])
+            ->where(['<>', 'is_downloaded', 'yes'])
+            ->asArray()
+            ->all();
+
+        if (!empty($allNotDownloaded)) {
+            $randomNumber = array_rand($allNotDownloaded);
+            $randomId = $allNotDownloaded[$randomNumber]['video_page_id'];
+
+            $model = $this->findModel($randomId);
+        }
+
+        return $this->render('download-random-video', ['model' => $model]);
     }
 
     public function actionDeleteVideoFile($id)

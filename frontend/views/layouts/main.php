@@ -42,8 +42,24 @@ AppAsset::register($this);
             'label' => 'Listings',
             'items' => SiteHelper::getMenuForNavBar(),
         ],
-        ['label' => 'Rate it', 'url' => ['/video-page/rate-video']],
-        ['label' => 'Watch random', 'url' => ['/video-page/watch-random']],
+        [
+            'label' => 'Random',
+            'items' => [
+                [
+                    'label' => 'Rate it',
+                    'url' => ['/video-page/rate-video']
+                ],
+                [
+                    'label' => 'Watch random',
+                    'url' => ['/video-page/watch-random']
+                ],
+                [
+                    'label' => 'Download random',
+                    'url' => ['/video-page/download-random']
+                ],
+
+            ],
+        ]
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

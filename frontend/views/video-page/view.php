@@ -81,7 +81,8 @@ $this->params['video_page_id'] = $model->video_page_id;
             'Download',
             [
                 'download',
-                'id' => $model->video_page_id
+                'id' => $model->video_page_id,
+                'action' => 'view',
             ],
             [
                 'class' => 'btn btn-primary',
