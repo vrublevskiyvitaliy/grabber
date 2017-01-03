@@ -284,19 +284,24 @@ class VideoPageController extends Controller
     public function actionAddActor($id)
     {
         $this->layout = 'video-page';
+
         $model = $this->findModel($id);
-        
         $actor = new Actor();
 
         if ($actor->load(Yii::$app->request->post())) {
 
             $actor = Actor::findOne(['actor_name' => $actor->actor_name]);
 
-            $actorToVideoPage = new ActorToVideoPage();
-            $actorToVideoPage->actor_id = $actor->actor_id;
-            $actorToVideoPage->video_page_id = $id;
+            if (!empty($actor) && empty(ActorToVideoPage::findOne([
+                    'actor_id' => $actor->actor_id,
+                    'video_page_id' => $id
+                ]))) {
+                $actorToVideoPage = new ActorToVideoPage();
+                $actorToVideoPage->actor_id = $actor->actor_id;
+                $actorToVideoPage->video_page_id = $id;
 
-            $actorToVideoPage->save();
+                $actorToVideoPage->save();
+            }
 
             return $this->redirect(
                 [
