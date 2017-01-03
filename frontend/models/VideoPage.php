@@ -159,4 +159,13 @@ class VideoPage extends \yii\db\ActiveRecord
 
         return gmdate("H:i:s", $this->duration);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActors()
+    {
+        return $this->hasMany(Actor::className(), ['actor_id' => 'actor_id'])
+            ->viaTable('actor_to_video_page', ['video_page_id' => 'video_page_id']);
+    }
 }

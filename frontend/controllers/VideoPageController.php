@@ -2,6 +2,9 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Actor;
+use frontend\models\ActorSearch;
+use frontend\models\ActorToVideoPage;
 use Yii;
 
 use yii\web\Controller;
@@ -73,6 +76,25 @@ class VideoPageController extends Controller
 
         return $this->render('view', [
             'model' => $model
+        ]);
+    }
+
+    public function actionActors($id)
+    {
+        $this->layout = 'video-page';
+        $model = $this->findModel($id);
+
+        $searchModel = new ActorSearch();
+        $params = [
+            'ActorSearch' => [
+                'videoPageId' => $id
+            ]
+        ];
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('actors', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -251,6 +273,50 @@ class VideoPageController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionDeleteActor($actor_id, $video_page_id)
+    {
+        ActorToVideoPage::findOne(['actor_id' => $actor_id, 'video_page_id' => $video_page_id])->delete();
+
+        return $this->redirect(['actors', 'id' => $video_page_id]);
+    }
+
+    public function actionAddActor($id)
+    {
+        $this->layout = 'video-page';
+
+        $model = $this->findModel($id);
+        $actor = new Actor();
+
+        if ($actor->load(Yii::$app->request->post())) {
+
+            $actor = Actor::findOne(['actor_name' => $actor->actor_name]);
+
+            if (!empty($actor) && empty(ActorToVideoPage::findOne([
+                    'actor_id' => $actor->actor_id,
+                    'video_page_id' => $id
+                ]))) {
+                $actorToVideoPage = new ActorToVideoPage();
+                $actorToVideoPage->actor_id = $actor->actor_id;
+                $actorToVideoPage->video_page_id = $id;
+
+                $actorToVideoPage->save();
+            }
+
+            return $this->redirect(
+                [
+                    'actors',
+                    'id' => $id
+                ]
+            );
+        } else {
+            return $this->render('add-actor', [
+                'actor' => $actor,
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     /**
      * Finds the VideoPage model based on its primary key value.
