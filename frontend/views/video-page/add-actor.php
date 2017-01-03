@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 $this->params['video_page_id'] = $model->video_page_id;
 
 ?>
-
+<p>Add actor: </p>
 <div >
     <?php $form = ActiveForm::begin(); ?>
 
