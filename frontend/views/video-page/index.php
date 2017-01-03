@@ -34,13 +34,17 @@ $gridColumns = [
                 'target' => '_blank',
                 'class' => 'inline',
             ];
-            $url = Url::to([
+            $urlParams = [
                 'video-page/index',
                 'VideoPageSearch' => [
                     'startLinkTitle' => $model->startLink->tittle,
-                    'title' => '',
                 ]
-            ]);
+            ];
+
+            if (!empty(Yii::$app->request->get('pageName'))) {
+                $urlParams['pageName'] =  Yii::$app->request->get('pageName');
+            }
+            $url = Url::to($urlParams);
             return Html::a(
                 $model->startLink->tittle,
                 $url,
