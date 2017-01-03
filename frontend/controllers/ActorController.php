@@ -3,6 +3,9 @@
 namespace frontend\controllers;
 
 use Yii;
+
+use yii\helpers\Json;
+
 use frontend\models\Actor;
 use frontend\models\ActorSearch;
 use yii\web\Controller;
@@ -133,5 +136,16 @@ class ActorController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAutocomplete($term, $limit = 10)
+    {
+        $infrastructureTypes = Actor::find()
+            ->select(['actor_id', 'actor_name as value'])
+            ->where(['like', 'actor_name', $term])
+            ->limit($limit)
+            ->asArray()
+            ->all();
+        return Json::encode($infrastructureTypes);
     }
 }

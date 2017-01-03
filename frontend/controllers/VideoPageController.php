@@ -281,6 +281,36 @@ class VideoPageController extends Controller
         return $this->redirect(['actors', 'id' => $video_page_id]);
     }
 
+    public function actionAddActor($id)
+    {
+        $this->layout = 'video-page';
+        $model = $this->findModel($id);
+        
+        $actor = new Actor();
+
+        if ($actor->load(Yii::$app->request->post())) {
+
+            $actor = Actor::findOne(['actor_name' => $actor->actor_name]);
+
+            $actorToVideoPage = new ActorToVideoPage();
+            $actorToVideoPage->actor_id = $actor->actor_id;
+            $actorToVideoPage->video_page_id = $id;
+
+            $actorToVideoPage->save();
+
+            return $this->redirect(
+                [
+                    'actors',
+                    'id' => $id
+                ]
+            );
+        } else {
+            return $this->render('add-actor', [
+                'actor' => $actor,
+                'model' => $model,
+            ]);
+        }
+    }
 
 
     /**

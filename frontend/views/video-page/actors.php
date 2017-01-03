@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['video_page_id'] = $model->video_page_id;
 ?>
 
+
+<?= Html::a('Add', ['add-actor', 'id' => $model->video_page_id], ['class' => 'btn btn-primary']) ?>
+
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
